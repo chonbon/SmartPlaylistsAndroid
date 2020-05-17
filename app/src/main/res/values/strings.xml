@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Smart Playlists</string>
+    <string name="title_activity_main_navi">MainNaviActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="welcomeText">Welcome! Sign in to a streaming service to continue</string>
+    <string name="spotifyLogoText">Spotify Login</string>
+    <string name="appleMusicLogoText">Apple Music Login</string>
+    <string name="transfer_playlists">Transfer Playlists</string>
+    <string name="nonProUsedPlaceholder">0/5</string>
+    <string name="schedule_a_playlist_transfer">Schedule a Playlist Transfer</string>
+    <string name="upgrade_to_pro">Upgrade to Pro</string>
+</resources>

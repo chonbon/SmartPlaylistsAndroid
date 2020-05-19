@@ -50,7 +50,7 @@ public class TransferActivity extends AppCompatActivity {
 
     public void createServiceList(){
         servicesList = new ArrayList<>();
-        StreamingServices temp = new StreamingServices("Spotify", false);
+        StreamingServices temp = new StreamingServices("Spotify", true);
         servicesList.add(temp);
         temp = new StreamingServices("Apple Music", false);
         servicesList.add(temp);

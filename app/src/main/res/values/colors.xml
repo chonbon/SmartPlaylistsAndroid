@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#71816d</color>
+    <color name="colorPrimary">#887BB0</color>
     <color name="colorPrimaryDark">#342a21</color>
-    <color name="colorAccent">#da667b</color>
+    <color name="colorAccent">#F4B9B8</color>
     <color name="Champagne">#F1E0C5</color>
     <color name="Bistre">#342a21</color>
     <color name="Khaki">#c9b79c</color>
+    <color name="bistre_opac">#A6261F18</color>
+    <color name="gray">#9fa0a4</color>
+
+    <color name="spearmint">#85D2D0</color>
+    <color name="yellow">#FFF4BD</color>
+    <color name="rosequartz">#F4B9B8</color>
+    <color name="purple">#887BB0</color>
 
 </resources>

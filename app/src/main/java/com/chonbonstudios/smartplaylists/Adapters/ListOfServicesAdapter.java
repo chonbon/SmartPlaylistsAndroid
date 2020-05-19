@@ -13,6 +13,7 @@ import com.chonbonstudios.smartplaylists.R;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListOfServicesAdapter extends RecyclerView.Adapter<ListOfServicesAdapter.MyViewHolder> {
@@ -27,9 +28,11 @@ public class ListOfServicesAdapter extends RecyclerView.Adapter<ListOfServicesAd
     //Direct ref to each item in the view
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView serviceName;
+        ConstraintLayout layout;
         MyViewHolder(LinearLayout v) {
             super(v);
             serviceName = v.findViewById(R.id.txtServiceListName);
+            layout = v.findViewById(R.id.containerList);
         }
     }
 
@@ -52,6 +55,10 @@ public class ListOfServicesAdapter extends RecyclerView.Adapter<ListOfServicesAd
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.serviceName.setText(mDataset.get(position).getName());
+
+        if(!mDataset.get(position).isSignedIn()){
+            holder.layout.setBackgroundResource(R.color.gray);
+        }
 
     }
 

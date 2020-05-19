@@ -1,18 +1,23 @@
 package com.chonbonstudios.smartplaylists;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.chonbonstudios.smartplaylists.listModels.ListOfServicesAdapter;
+import com.chonbonstudios.smartplaylists.Adapters.ListOfServicesAdapter;
+import com.chonbonstudios.smartplaylists.ModelData.StreamingServices;
+
+import java.util.ArrayList;
 
 public class TransferActivity extends AppCompatActivity {
 
     private RecyclerView listOfServices;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<StreamingServices> servicesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,25 @@ public class TransferActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         listOfServices.setLayoutManager(layoutManager);
 
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        listOfServices.addItemDecoration(itemDecoration);
+
+        //fill out arraylist
+        createServiceList();
+
         // specify an adapter
-        //mAdapter = new ListOfServicesAdapter(myDataSet);
-        //listOfServices.setAdapter(mAdapter);
+        mAdapter = new ListOfServicesAdapter(servicesList);
+        listOfServices.setAdapter(mAdapter);
+    }
+
+
+
+    public void createServiceList(){
+        servicesList = new ArrayList<>();
+        StreamingServices temp = new StreamingServices("Spotify", false);
+        servicesList.add(temp);
+        temp = new StreamingServices("Apple Music", false);
+        servicesList.add(temp);
     }
 }

@@ -11,4 +11,6 @@
     <string name="nonProUsedPlaceholder">0/5</string>
     <string name="schedule_a_playlist_transfer">Schedule a Playlist Transfer</string>
     <string name="upgrade_to_pro">Upgrade to Pro</string>
+    <string name="serviceholder">ServiceHolder</string>
+    <string name="carrot_button"><![CDATA[>]]></string>
 </resources>

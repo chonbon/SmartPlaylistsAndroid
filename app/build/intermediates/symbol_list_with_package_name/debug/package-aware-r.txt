@@ -644,6 +644,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color bistre_opac
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -656,9 +657,6 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
-color colorAccent
-color colorPrimary
-color colorPrimaryDark
 color design_bottom_navigation_shadow_color
 color design_default_color_primary
 color design_default_color_primary_dark
@@ -680,6 +678,7 @@ color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
+color gray
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color material_blue_grey_800
@@ -722,6 +721,10 @@ color mtrl_textinput_filled_box_default_background_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color primaryColor
+color primaryDarkColor
+color primaryLightColor
+color primaryTextColor
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -730,12 +733,19 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color purple
 color ripple_material_dark
 color ripple_material_light
+color rosequartz
+color secondaryColor
+color secondaryDarkColor
+color secondaryLightColor
+color secondaryTextColor
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color spearmint
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -744,6 +754,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color yellow
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -1091,6 +1102,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable spotify_logo_cmyk_green
+drawable stock_playlist_art
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -1166,6 +1178,7 @@ id center
 id center_horizontal
 id center_vertical
 id chains
+id checkPlaylist
 id checkbox
 id checked
 id chronometer
@@ -1175,6 +1188,7 @@ id collapseActionView
 id constraintLayout
 id constraintTransfer
 id container
+id containerList
 id content
 id contentPanel
 id coordinator
@@ -1192,10 +1206,6 @@ id dialog_button
 id dimensions
 id direct
 id disableHome
-id divider
-id divider2
-id divider4
-id divider5
 id edit_query
 id end
 id enterAlways
@@ -1219,6 +1229,7 @@ id icon
 id icon_group
 id ifRoom
 id image
+id imgPlaylistCover
 id info
 id invisible
 id italic
@@ -1229,6 +1240,7 @@ id left
 id line1
 id line3
 id listMode
+id listPlaylistChooser
 id listServices
 id listStreamingServices
 id list_item
@@ -1344,6 +1356,9 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id txtArrowButton
+id txtPlaylistName
+id txtServiceListName
 id txtWelcome
 id unchecked
 id uniform
@@ -1352,6 +1367,7 @@ id up
 id useLogo
 id view_offset_helper
 id visible
+id webView
 id withText
 id wrap
 id wrap_content
@@ -1427,6 +1443,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout list_playlist
 layout list_services
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
@@ -1469,10 +1486,12 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string api_spotify_login
 string app_name
 string appbar_scrolling_view_behavior
 string appleMusicLogoText
 string bottom_sheet_behavior
+string carrot_button
 string character_counter_content_description
 string character_counter_pattern
 string fab_transformation_scrim_behavior
@@ -1489,6 +1508,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string schedule_a_playlist_transfer
 string search_menu_title
+string serviceholder
 string spotifyLogoText
 string status_bar_notification_info_overflow
 string title_activity_main_navi

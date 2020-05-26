@@ -1,11 +1,55 @@
 [
     {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
-    },
-    {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_stock_playlist_art.jpg.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\stock_playlist_art.jpg"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_apple_music_icon.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\apple_music_icon.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_home_black_24dp.xml.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\layout_list_playlist.xml.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\layout\\list_playlist.xml"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_dashboard_black_24dp.xml.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
@@ -28,24 +72,12 @@
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\layout\\list_services.xml"
     },
     {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_apple_music_icon.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\apple_music_icon.png"
-    },
-    {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_home_black_24dp.xml.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\ic_home_black_24dp.xml"
-    },
-    {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_not_signed_in.xml.flat",
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\layout\\activity_not_signed_in.xml"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
@@ -54,14 +86,6 @@
     {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_transfer.xml.flat",
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\layout\\activity_transfer.xml"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
@@ -74,21 +98,5 @@
     {
         "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_dashboard_black_24dp.xml.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\drawable\\ic_dashboard_black_24dp.xml"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "E:\\Code\\Android Projects\\SmartPlaylistsAndroid\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     }
 ]

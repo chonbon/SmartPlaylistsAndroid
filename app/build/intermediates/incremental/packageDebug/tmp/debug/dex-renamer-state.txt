@@ -1,0 +1,7 @@
+#Thu May 21 17:07:34 EDT 2020
+base.0=/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/dex/debug/mergeExtDexDebug/out/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/dex/debug/mergeProjectDexDebug/out/classes.dex

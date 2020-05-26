@@ -9,7 +9,7 @@
         android:id="@+id/containerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/txtServiceListName"
@@ -19,7 +19,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/serviceholder"
-            android:textColor="@color/yellow"
+            android:textColor="@color/primaryTextColor"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="@string/carrot_button"
-            android:textColor="@color/rosequartz"
+            android:textColor="@color/secondaryLightColor"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

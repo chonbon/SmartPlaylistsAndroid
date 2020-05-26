@@ -13,4 +13,8 @@
     <string name="upgrade_to_pro">Upgrade to Pro</string>
     <string name="serviceholder">ServiceHolder</string>
     <string name="carrot_button"><![CDATA[>]]></string>
+
+    //Spotify Api Requests
+    <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
+
 </resources>

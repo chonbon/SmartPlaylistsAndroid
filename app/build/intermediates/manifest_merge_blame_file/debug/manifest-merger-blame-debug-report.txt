@@ -1,0 +1,95 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.chonbonstudios.smartplaylists"
+4    android:versionCode="1"
+5    android:versionName="0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:4:5-66
+11-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:5:5-78
+12-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:5:22-76
+13
+14    <application
+14-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:6:5-31:19
+15        android:allowBackup="false"
+15-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:7:9-36
+16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+16-->[androidx.core:core:1.1.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\34b4ab0d8b65ac74ddd00d45b26dd963\core-1.1.0\AndroidManifest.xml:24:18-86
+17        android:debuggable="true"
+18        android:icon="@mipmap/ic_launcher"
+18-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:8:9-43
+19        android:label="@string/app_name"
+19-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:9:9-41
+20        android:roundIcon="@mipmap/ic_launcher_round"
+20-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:10:9-54
+21        android:supportsRtl="true"
+21-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:11:9-35
+22        android:testOnly="true"
+23        android:theme="@style/AppTheme" >
+23-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:12:9-40
+24        <activity android:name="com.chonbonstudios.smartplaylists.TransferActivity" />
+24-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:13:9-63
+24-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:13:19-51
+25        <activity android:name="com.chonbonstudios.smartplaylists.MainActivity" >
+25-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:14:9-23:20
+25-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:14:19-47
+26            <intent-filter>
+26-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:15:13-22:29
+27                <action android:name="android.intent.action.VIEW" />
+27-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:16:17-68
+27-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:16:25-66
+28
+29                <category android:name="android.intent.category.DEFAULT" />
+29-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:17:17-76
+29-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:17:27-73
+30                <category android:name="android.intent.category.BROWSABLE" />
+30-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:18:17-78
+30-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:18:27-75
+31
+32                <data android:host="smartplaylists.chonbonstudios.com" />
+32-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:19:17-74
+32-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:19:23-71
+33                <data android:scheme="https" />
+33-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:19:17-74
+33-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:20:23-45
+34                <data android:pathPrefix="/auth" />
+34-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:19:17-74
+34-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:21:23-49
+35            </intent-filter>
+36        </activity>
+37        <activity android:name="com.chonbonstudios.smartplaylists.NotSignedInActivity" >
+37-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:24:9-30:20
+37-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:24:19-54
+38            <intent-filter>
+38-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:25:13-29:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:26:17-69
+39-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:26:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:28:17-77
+41-->E:\Code\Android Projects\SmartPlaylistsAndroid\app\src\main\AndroidManifest.xml:28:27-74
+42            </intent-filter>
+43        </activity>
+44
+45        <provider
+45-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\e953a6c6aa473293c3a94459e549ecaa\jetified-lifecycle-process-2.0.0\AndroidManifest.xml:23:9-27:43
+46            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+46-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\e953a6c6aa473293c3a94459e549ecaa\jetified-lifecycle-process-2.0.0\AndroidManifest.xml:24:13-79
+47            android:authorities="com.chonbonstudios.smartplaylists.lifecycle-process"
+47-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\e953a6c6aa473293c3a94459e549ecaa\jetified-lifecycle-process-2.0.0\AndroidManifest.xml:25:13-69
+48            android:exported="false"
+48-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\e953a6c6aa473293c3a94459e549ecaa\jetified-lifecycle-process-2.0.0\AndroidManifest.xml:26:13-37
+49            android:multiprocess="true" />
+49-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\austi\.gradle\caches\transforms-2\files-2.1\e953a6c6aa473293c3a94459e549ecaa\jetified-lifecycle-process-2.0.0\AndroidManifest.xml:27:13-40
+50    </application>
+51
+52</manifest>

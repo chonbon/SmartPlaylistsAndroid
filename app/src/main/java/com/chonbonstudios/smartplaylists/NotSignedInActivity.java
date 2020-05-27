@@ -13,6 +13,7 @@ import com.apple.android.sdk.authentication.AuthenticationFactory;
 import com.apple.android.sdk.authentication.AuthenticationManager;
 import com.apple.android.sdk.authentication.TokenError;
 import com.apple.android.sdk.authentication.TokenResult;
+import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,7 @@ public class NotSignedInActivity extends AppCompatActivity {
     private static final int REQUESTCODE_APPLEMUSIC_AUTH = 3456;
 
     private AuthenticationManager authenticationManager;
+    private DataHandler dh;
     OkHttpClient client;
     WebView mWebView;
 
@@ -38,16 +40,20 @@ public class NotSignedInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_not_signed_in);
+        // init DataHandler
+        dh = new DataHandler(this);
 
+        //init views and http client
+        mWebView = findViewById(R.id.webView);
+        client = new OkHttpClient();
+
+        // apple music sdk auth manager init
         if (authenticationManager == null) {
             authenticationManager = AuthenticationFactory.createAuthenticationManager(this);
         }
 
-        mWebView = findViewById(R.id.webView);
-
-        client = new OkHttpClient();
-
     }
+
 
     // User clicks to log in to spotify
     public void loginSpotify(View view) {
@@ -63,37 +69,6 @@ public class NotSignedInActivity extends AppCompatActivity {
         apiLoginApple();
     }
 
-    // Api call to spotify login
-    public void apiLoginSpotify(){
-        Request request = new Request.Builder()
-                .url(getString(R.string.api_spotify_login))
-                .build();
-
-        Call call = client.newCall(request);
-
-        call.enqueue(new Callback(){
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    if(response.isSuccessful()){
-                        Log.v(TAG, response.body().string());
-                    }
-                } catch (IOException e){
-                    Log.e(TAG, "IO Exception caught: ", e);
-                }
-
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e(TAG, "IO Exception caught: ", e);
-            }
-        });
-
-
-    }
-
     // Api call to apple music to login
     public void apiLoginApple() {
         AuthIntentBuilder authIntentBuilder = new AuthIntentBuilder(this,getString(R.string.apple_dev_token));
@@ -104,7 +79,7 @@ public class NotSignedInActivity extends AppCompatActivity {
         startActivityForResult(intent,REQUESTCODE_APPLEMUSIC_AUTH);
     }
 
-
+    // on activity result, mainly checking from apple music redirect
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e(TAG, "onActivityResult: " + requestCode + ", data = " + data);
@@ -114,6 +89,7 @@ public class NotSignedInActivity extends AppCompatActivity {
             if (!tokenResult.isError()) {
                 String musicUserToken = tokenResult.getMusicUserToken();
                 Log.v(TAG,"Apple Music User token = " + musicUserToken);
+                dh.writeStringData(dh.APPLE_MUSIC,musicUserToken);
                 startActivity(new Intent(NotSignedInActivity.this,
                         MainActivity.class).putExtra("AppleMusicToken", musicUserToken));
             } else {

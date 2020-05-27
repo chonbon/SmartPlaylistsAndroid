@@ -1389,6 +1389,7 @@ id transition_transform
 id txtArrowButton
 id txtPlaylistName
 id txtServiceListName
+id txtSplashScreen
 id txtWelcome
 id unchecked
 id uniform
@@ -1458,6 +1459,7 @@ layout abc_tooltip
 layout activity_approve_access
 layout activity_main
 layout activity_not_signed_in
+layout activity_splash
 layout activity_transfer
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -1517,7 +1519,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
-string api_apple_login
+string api_apple_get_all_playlists
 string api_spotify_getplaylists
 string api_spotify_login
 string app_name

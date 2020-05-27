@@ -623,13 +623,13 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with <ns1:g example="Mail" id="application_name">%s</ns1:g></string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="api_apple_login"/>
+    <string name="api_apple_get_all_playlists">https://api.music.apple.com/v1/me/library/playlists?limit=100</string>
     <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists</string>
     <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;scope=playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
     <string name="app_name">Smart Playlists</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="appleMusicLogoText">Apple Music Login</string>
-    <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNTU0NDgzLCJleHAiOjE1OTA1OTc2ODN9.9uCZ1bxiink1khlP16XgZCyJdWbwo6PgtGM0G2FVH6zu5vR7Q-aRCYBAb-Cnbzwn7i_6VeZrsqtIGIZl0vOB4Q</string>
+    <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNjA0OTM0LCJleHAiOjE2MDYzODM3MzR9.yaod-8EI1PwoGOi7b1Ujo-drqz0pVNxWnI41btm5fLQYWLtubMKFYD2gTPaa-VW5SK-w1D6YyRtVKKvs-5dtWw</string>
     <string name="approve_access_main">To play the full song, connect %1$s to Apple Music.</string>
     <string name="approve_access_sub">Millions of songs. All ad-free. \nNew users can get upto 3 months free.</string>
     <string name="bottom_sheet_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>

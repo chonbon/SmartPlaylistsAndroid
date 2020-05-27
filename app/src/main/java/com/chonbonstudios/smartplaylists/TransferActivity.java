@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import com.chonbonstudios.smartplaylists.Adapters.ListOfServicesAdapter;
 import com.chonbonstudios.smartplaylists.Adapters.PlaylistAdapter;
+import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
 import com.chonbonstudios.smartplaylists.ModelData.Playlist;
 import com.chonbonstudios.smartplaylists.ModelData.StreamingServices;
 
@@ -36,12 +37,13 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
     OkHttpClient client;
     String token;
+    DataHandler dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
-
+        dh = new DataHandler(this);
         client = new OkHttpClient();
 
         listOfServices = findViewById(R.id.listStreamingServices);
@@ -64,7 +66,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
         //fill out arraylist
         createServiceList();
-        createPlaylists();
 
         // specify an adapter and set the adapter to the list
         servicesAdapter = new ListOfServicesAdapter(servicesList, this);
@@ -73,33 +74,81 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
         token = getIntent().getStringExtra("TOKEN");
         if(token != null){
+            dh.writeStringData(dh.SPOTIFY, token);
             spotifySearchPlaylists(token);
         }
 
     }
 
-
     // creates a default services list with temp data
     public void createServiceList(){
         servicesList = new ArrayList<>();
-        StreamingServices temp = new StreamingServices("Spotify", true);
-        servicesList.add(temp);
-        temp = new StreamingServices("Apple Music", false);
-        servicesList.add(temp);
+        StreamingServices temp;
+
+        if(dh.getSpotifyUserToken() != ""){
+            temp = new StreamingServices("Spotify", true);
+            spotifySearchPlaylists(token);
+            servicesList.add(temp);
+        } else {
+            temp = new StreamingServices("Spotify", false);
+            servicesList.add(temp);
+        }
+
+        if(dh.getAppleMusicUserToken() != ""){
+            temp = new StreamingServices("Apple Music", true);
+            appleSearchPlaylists();
+            servicesList.add(temp);
+        } else {
+            temp = new StreamingServices("Apple Music", false);
+            servicesList.add(temp);
+        }
+
     }
 
-    //creates a default playlist list with temp data
-    public void createPlaylists(){
-        playlistsList = new ArrayList<>();
-        playlistsList.add(new Playlist("release radar"));
-        playlistsList.add(new Playlist("discover weekly"));
-        playlistsList.add(new Playlist("austins mega"));
+    // Handle what service to go in to select playlists
+    @Override
+    public void onServiceClick(int position) {
+
     }
 
     //Apple Music api
 
     //Search for existing playlists and populate
-    public void appleSearchPlaylists(){}
+    public void appleSearchPlaylists(){
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_apple_get_all_playlists))
+                .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
+                .header("Music-User-Token", dh.getAppleMusicUserToken())
+                .build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback(){
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try {
+                    if(response.isSuccessful()){
+                        Log.v(TAG, response.body().string());
+
+                        appleLoadPlaylists(response);
+                    }
+                } catch (IOException e){
+                    Log.e(TAG, "IO Exception caught: ", e);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e(TAG, "IO Exception caught: ", e);
+            }
+        });
+    }
+
+    public void appleLoadPlaylists(Response response){
+
+    }
 
     //Create or update playlists
     public void appleCreatePlaylists(ArrayList<Playlist> playlists){}
@@ -123,6 +172,8 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
                 try {
                     if(response.isSuccessful()){
                         Log.v(TAG, response.body().string());
+
+                        spotifyLoadPlaylists(response);
                     }
                 } catch (IOException e){
                     Log.e(TAG, "IO Exception caught: ", e);
@@ -137,11 +188,14 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         });
     }
 
-    //Create or update playlists
-    public void spotifyCreatePlaylists(ArrayList<Playlist> playlists){}
+    // Loads playlists from response
+    private void spotifyLoadPlaylists(Response response) {
 
-    @Override
-    public void onServiceClick(int position) {
-        Toast.makeText(this, "POS Clicked " + position,Toast.LENGTH_SHORT).show();
     }
+
+    //Create or update playlists
+    public void spotifyCreatePlaylists(ArrayList<Playlist> playlists){
+
+    }
+
 }

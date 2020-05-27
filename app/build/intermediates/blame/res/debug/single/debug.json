@@ -4,12 +4,12 @@
         "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/drawable/ic_notifications_black_24dp.xml"
     },
     {
-        "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
-    },
-    {
         "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/layout_activity_transfer.xml.flat",
         "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/layout/activity_transfer.xml"
+    },
+    {
+        "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
         "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
@@ -74,6 +74,10 @@
     {
         "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/layout_activity_splash.xml.flat",
+        "source": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/res/layout/activity_splash.xml"
     },
     {
         "merged": "/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/build/intermediates/res/merged/debug/drawable-xxhdpi_spotify_logo_cmyk_green.png.flat",

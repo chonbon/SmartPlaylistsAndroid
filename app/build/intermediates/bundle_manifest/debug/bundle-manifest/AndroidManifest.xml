@@ -8,8 +8,8 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="29" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -23,6 +23,13 @@
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+        <activity android:name="com.chonbonstudios.smartplaylists.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.chonbonstudios.smartplaylists.TransferActivity" />
         <activity android:name="com.chonbonstudios.smartplaylists.MainActivity" >
             <intent-filter>
@@ -36,13 +43,7 @@
                 <data android:pathPrefix="/auth" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chonbonstudios.smartplaylists.NotSignedInActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.chonbonstudios.smartplaylists.NotSignedInActivity" />
 
         <service
             android:name="com.apple.android.music.playback.reporting.ReportingService"

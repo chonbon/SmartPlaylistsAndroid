@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Playlist {
     private String name;
+    private String id;
     private ArrayList<Song> tracks;
     private ArrayList<Song> unMatchedTracks;
 
-    public Playlist(String name){
+    public Playlist(String name, String id){
         this.name = name;
+        this.id = id;
         this.tracks = new ArrayList<>();
         this.unMatchedTracks = new ArrayList<>();
     }
@@ -25,6 +27,10 @@ public class Playlist {
         return name;
     }
 
+    public String getId(){
+        return id;
+    }
+
     public ArrayList<Song> getTracks() {
         return tracks;
     }
@@ -32,4 +38,6 @@ public class Playlist {
     public ArrayList<Song> getUnMatchedTracks() {
         return unMatchedTracks;
     }
+
+
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Smart Playlists.iml" filepath="$PROJECT_DIR$/Smart Playlists.iml" group="Smart Playlists" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SmartPlaylists.iml" filepath="$PROJECT_DIR$/.idea/SmartPlaylists.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Smart Playlists/app" />
     </modules>
   </component>

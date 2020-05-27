@@ -182,6 +182,7 @@
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
     <color name="bistre_opac">#A6261F18</color>
+    <color name="black">#000</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -194,6 +195,7 @@
     <color name="cardview_light_background">#FFFFFFFF</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
+    <color name="color_primary">#ff2d55</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="design_default_color_primary">#3F51B5</color>
     <color name="design_default_color_primary_dark">#303F9F</color>
@@ -242,6 +244,7 @@
     <color name="primaryDarkColor">#000a12</color>
     <color name="primaryLightColor">#4f5b62</color>
     <color name="primaryTextColor">#ffffff</color>
+    <color name="primary_accent_50">#80ff2d55</color>
     <color name="primary_dark_material_dark">@android:color/black</color>
     <color name="primary_dark_material_light">@color/material_grey_600</color>
     <color name="primary_material_dark">@color/material_grey_900</color>
@@ -267,8 +270,11 @@
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
+    <color name="system_gray">#8e8e93</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
+    <color name="white_alpha_25">#40ffffff</color>
+    <color name="white_alpha_70">#b3ffffff</color>
     <color name="yellow">#FFF4BD</color>
     <dimen name="abc_action_bar_content_inset_material">16dp</dimen>
     <dimen name="abc_action_bar_content_inset_with_nav">72dp</dimen>
@@ -360,6 +366,7 @@
     <dimen name="compat_control_corner_material">2dp</dimen>
     <dimen name="compat_notification_large_icon_max_height">320dp</dimen>
     <dimen name="compat_notification_large_icon_max_width">320dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width">168dp</dimen>
     <dimen name="design_bottom_navigation_active_item_min_width">96dp</dimen>
@@ -419,6 +426,7 @@
     <dimen name="item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_max_velocity">800dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_velocity">120dp</dimen>
+    <dimen name="logo_ht">76dp</dimen>
     <dimen name="mtrl_bottomappbar_fabOffsetEndMode">60dp</dimen>
     <dimen name="mtrl_bottomappbar_fab_cradle_margin">5dp</dimen>
     <dimen name="mtrl_bottomappbar_fab_cradle_rounded_corner_radius">8dp</dimen>
@@ -482,6 +490,8 @@
     <dimen name="notification_subtext_size">13sp</dimen>
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
+    <dimen name="text_regular">20sp</dimen>
+    <dimen name="text_subhead">16sp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -613,11 +623,19 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with <ns1:g example="Mail" id="application_name">%s</ns1:g></string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
+    <string name="api_apple_login"/>
+    <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists</string>
+    <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;scope=playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
     <string name="app_name">Smart Playlists</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="appleMusicLogoText">Apple Music Login</string>
+    <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNTU0NDgzLCJleHAiOjE1OTA1OTc2ODN9.9uCZ1bxiink1khlP16XgZCyJdWbwo6PgtGM0G2FVH6zu5vR7Q-aRCYBAb-Cnbzwn7i_6VeZrsqtIGIZl0vOB4Q</string>
+    <string name="approve_access_main">To play the full song, connect %1$s to Apple Music.</string>
+    <string name="approve_access_sub">Millions of songs. All ad-free. \nNew users can get upto 3 months free.</string>
     <string name="bottom_sheet_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+    <string name="btn_continue">Connect to Apple Music</string>
+    <string name="btn_install">Install Apple Music</string>
+    <string name="btn_update">Update Apple Music</string>
     <string name="carrot_button"><![CDATA[>]]></string>
     <string name="character_counter_content_description">Character limit exceeded %1$d of %2$d</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
@@ -2082,6 +2100,24 @@
     <item name="boxCornerRadiusBottomStart">@dimen/mtrl_textinput_box_corner_radius_medium</item>
     <item name="boxStrokeColor">?attr/colorControlActivated</item>
   </style>
+    <style name="Body" parent="Roboto">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="ButtonAStyle" parent="Body">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/button_a_text_color</item>
+        <item name="android:background">@drawable/button_a_background</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+    <style name="Callout" parent="Roboto">
+        <item name="android:textColor">@color/system_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="CardView" parent="Base.CardView">
     </style>
     <style name="CardView.Dark">
@@ -2089,6 +2125,12 @@
     </style>
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
+    </style>
+    <style name="MusicKitAuthTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        
+        <item name="colorPrimaryDark">@android:color/black</item>
+        
+        <item name="alertDialogTheme">@style/Theme.AppCompat.Dialog.Alert</item>
     </style>
     <style name="Platform.AppCompat" parent="android:Theme.Holo">
         <item name="android:windowNoTitle">true</item>
@@ -2254,6 +2296,9 @@
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
     <style name="Platform.Widget.AppCompat.Spinner" parent="android:Widget.Holo.Spinner"/>
+    <style name="Roboto">
+        <item name="customFont">fonts/Roboto-Regular.ttf</item>
+    </style>
     <style name="RtlOverlay.DialogWindowTitle.AppCompat" parent="Base.DialogWindowTitle.AppCompat">
     </style>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">
@@ -2648,6 +2693,11 @@
     <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense
     </item>
   </style>
+    <style name="Title2" parent="Roboto">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar">
     </style>
     <style name="Widget.AppCompat.ActionBar.Solid" parent="Base.Widget.AppCompat.ActionBar.Solid">
@@ -3885,6 +3935,11 @@
             
             <flag name="all" value="0x77"/>
         </attr>
+    </declare-styleable>
+    <declare-styleable name="CustomTextView">
+        <attr format="string" name="customFont"/>
+        <attr format="float" name="kerning"/>
+        <attr format="dimension" name="minTextSize"/>
     </declare-styleable>
     <declare-styleable name="DesignTheme"><attr name="bottomSheetDialogTheme"/><attr name="bottomSheetStyle"/></declare-styleable>
     <declare-styleable name="DrawerArrowToggle">

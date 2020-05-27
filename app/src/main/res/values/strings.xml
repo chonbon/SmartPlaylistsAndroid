@@ -15,6 +15,10 @@
     <string name="carrot_button"><![CDATA[>]]></string>
 
     //Spotify Api Requests
-    <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
+    <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;scope=playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
+    <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists</string>
 
+    //Apple Music Api
+    <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNTU0NDgzLCJleHAiOjE1OTA1OTc2ODN9.9uCZ1bxiink1khlP16XgZCyJdWbwo6PgtGM0G2FVH6zu5vR7Q-aRCYBAb-Cnbzwn7i_6VeZrsqtIGIZl0vOB4Q</string>
+    <string name="api_apple_login"></string>
 </resources>

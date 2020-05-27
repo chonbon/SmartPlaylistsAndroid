@@ -4,9 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.chonbonstudios.smartplaylists.Adapters.ListOfServicesAdapter;
@@ -14,9 +22,11 @@ import com.chonbonstudios.smartplaylists.Adapters.PlaylistAdapter;
 import com.chonbonstudios.smartplaylists.ModelData.Playlist;
 import com.chonbonstudios.smartplaylists.ModelData.StreamingServices;
 
+import org.jetbrains.annotations.NotNull;
 
 
 public class TransferActivity extends AppCompatActivity implements ListOfServicesAdapter.OnServiceClick {
+    public static final String TAG = TransferActivity.class.getSimpleName();
 
     private RecyclerView listOfServices, listOfPlaylists;
     private RecyclerView.Adapter servicesAdapter, playlistsAdapter;
@@ -24,10 +34,15 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     private ArrayList<StreamingServices> servicesList;
     private ArrayList<Playlist> playlistsList;
 
+    OkHttpClient client;
+    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
+
+        client = new OkHttpClient();
 
         listOfServices = findViewById(R.id.listStreamingServices);
         listOfPlaylists = findViewById(R.id.listPlaylistChooser);
@@ -55,6 +70,12 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         servicesAdapter = new ListOfServicesAdapter(servicesList, this);
         playlistsAdapter = new PlaylistAdapter(playlistsList);
         listOfServices.setAdapter(servicesAdapter);
+
+        token = getIntent().getStringExtra("TOKEN");
+        if(token != null){
+            spotifySearchPlaylists(token);
+        }
+
     }
 
 
@@ -87,7 +108,34 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     //Spotify api
 
     //Search for existing playlists and populate
-    public void spotifySearchPlaylists(){}
+    public void spotifySearchPlaylists(String token){
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_spotify_getplaylists))
+                .header("Authorization", "Bearer "+ token)
+                .build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback(){
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try {
+                    if(response.isSuccessful()){
+                        Log.v(TAG, response.body().string());
+                    }
+                } catch (IOException e){
+                    Log.e(TAG, "IO Exception caught: ", e);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e(TAG, "IO Exception caught: ", e);
+            }
+        });
+    }
 
     //Create or update playlists
     public void spotifyCreatePlaylists(ArrayList<Playlist> playlists){}

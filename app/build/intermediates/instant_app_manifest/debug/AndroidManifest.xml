@@ -11,9 +11,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
         <activity android:name="com.chonbonstudios.smartplaylists.TransferActivity" />
         <activity android:name="com.chonbonstudios.smartplaylists.MainActivity" >
             <intent-filter>
@@ -40,6 +42,39 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.apple.android.music.playback.reporting.ReportingService"
+            android:exported="false"
+            android:label="Reporting Service" />
+        <service
+            android:name="com.apple.android.music.playback.reporting.ReportingServiceApi26"
+            android:exported="false"
+            android:label="Reporting Service"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity
+            android:name="com.apple.android.sdk.authentication.StartAuthenticationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MusicKitAuthTheme" >
+        </activity>
+        <activity
+            android:name="com.apple.android.sdk.authentication.SDKUriHandlerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/MusicKitAuthTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.chonbonstudios.smartplaylists"
+                    android:pathPattern="/authenticateresult.*"
+                    android:scheme="musicsdk" />
             </intent-filter>
         </activity>
 

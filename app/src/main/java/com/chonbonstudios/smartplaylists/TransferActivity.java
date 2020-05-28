@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
@@ -52,6 +55,8 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         setContentView(R.layout.activity_transfer);
         dh = new DataHandler(this);
         client = new OkHttpClient();
+        spotifyList = new ArrayList<>();
+        appleList = new ArrayList<>();
 
         listOfServices = findViewById(R.id.listStreamingServices);
         listOfPlaylists = findViewById(R.id.listPlaylistChooser);
@@ -81,11 +86,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
         listOfServices.setAdapter(servicesAdapter);
 
-        token = getIntent().getStringExtra("TOKEN");
-        if(token != null){
-            dh.writeStringData(dh.SPOTIFY, token);
-        }
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -101,7 +101,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
                 }
             }
         });
-
     }
 
     // creates a default services list with temp data
@@ -192,7 +191,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     }
 
     public void appleLoadPlaylists(String response) {
-        appleList = new ArrayList<>();
         JSONArray jArray = new JSONArray();
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -255,6 +253,8 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
                         Log.v(TAG, res);
 
                         spotifyLoadPlaylists(res);
+                    }else {
+                        spotifyGetRefreshToken();
                     }
                 } catch (IOException e){
                     Log.e(TAG, "IO Exception caught: ", e);
@@ -271,7 +271,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
     // Loads playlists from response
     private void spotifyLoadPlaylists(String response) {
-        spotifyList = new ArrayList<>();
         JSONArray jArray = new JSONArray();
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -310,6 +309,49 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     //Create or update playlists
     public void spotifyCreatePlaylists(ArrayList<Playlist> playlists){
 
+    }
+
+    //Refresh Token if expired
+    public void spotifyGetRefreshToken(){
+        String base = getString(R.string.spotify_client_id) + ":" + getString(R.string.spotify_client_secret);
+        String encoded = Base64.encodeToString(base.getBytes(),Base64.NO_WRAP);
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("grant_type", "refresh_token")
+                .add("refresh_token",dh.getSpotifyRefreshToken()).build();
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_spotify_accesss))
+                .post(requestBody)
+                .header("Authorization", "Basic "+ encoded)
+                .build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback(){
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try {
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        Log.v(TAG, res);
+                        JSONObject object = new JSONObject(res);
+                        dh.writeStringData(dh.SPOTIFY, object.getString("access_token"));
+                        //dh.writeStringData(dh.SPOTIFY_REFRESH, object.getString("refresh_token"));
+                        spotifySearchPlaylists();
+                    }
+                    Log.e(TAG, response.toString());
+                } catch (IOException | JSONException e){
+                    Log.e(TAG, "IO Exception caught: ", e);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e(TAG, "IO Exception caught: ", e);
+            }
+        });
     }
 
 }

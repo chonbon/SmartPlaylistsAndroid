@@ -1281,6 +1281,7 @@ id mini
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
+id my_toolbar
 id nav_controller_view_tag
 id navigation_header_container
 id never
@@ -1521,6 +1522,7 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string api_apple_get_all_playlists
+string api_spotify_accesss
 string api_spotify_getplaylists
 string api_spotify_login
 string app_name
@@ -1552,6 +1554,9 @@ string schedule_a_playlist_transfer
 string search_menu_title
 string serviceholder
 string spotifyLogoText
+string spotify_client_id
+string spotify_client_secret
+string spotify_redirect
 string status_bar_notification_info_overflow
 string title_activity_main_navi
 string title_dashboard

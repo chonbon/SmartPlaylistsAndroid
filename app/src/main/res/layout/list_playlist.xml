@@ -35,11 +35,12 @@
 
         <TextView
             android:id="@+id/txtPlaylistName"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:singleLine="false"
             android:text="PlaylistName"
             android:textColor="@color/primaryTextColor"
             android:textSize="18sp"

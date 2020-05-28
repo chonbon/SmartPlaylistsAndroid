@@ -7,6 +7,8 @@ public class Playlist {
     private String id;
     private ArrayList<Song> tracks;
     private ArrayList<Song> unMatchedTracks;
+    private boolean isSelected;
+    private String imageUrl = "";
 
     public Playlist(String name, String id){
         this.name = name;
@@ -39,5 +41,19 @@ public class Playlist {
         return unMatchedTracks;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
 
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

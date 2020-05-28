@@ -88,77 +88,86 @@
 46-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:33:9-66
 46-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:33:19-54
 47
-48        <service
-48-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:15:9-18:49
-49            android:name="com.apple.android.music.playback.reporting.ReportingService"
-49-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:16:13-87
-50            android:exported="false"
-50-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:17:13-37
-51            android:label="Reporting Service" />
-51-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:18:13-46
-52        <service
-52-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:19:9-23:72
-53            android:name="com.apple.android.music.playback.reporting.ReportingServiceApi26"
-53-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:20:13-92
-54            android:exported="false"
-54-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:21:13-37
-55            android:label="Reporting Service"
-55-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:22:13-46
-56            android:permission="android.permission.BIND_JOB_SERVICE" />
-56-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:23:13-69
-57
-58        <activity
-58-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:14:9-18:20
-59            android:name="com.apple.android.sdk.authentication.StartAuthenticationActivity"
-59-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:15:13-92
-60            android:screenOrientation="portrait"
-60-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:16:13-49
-61            android:theme="@style/MusicKitAuthTheme" >
-61-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:17:13-53
-62        </activity>
+48        <provider
+48-->[com.squareup.picasso:picasso:2.71828] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/921c10f85af6a6dde413a4ef96a733de/jetified-picasso-2.71828/AndroidManifest.xml:8:9-11:40
+49            android:name="com.squareup.picasso.PicassoProvider"
+49-->[com.squareup.picasso:picasso:2.71828] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/921c10f85af6a6dde413a4ef96a733de/jetified-picasso-2.71828/AndroidManifest.xml:9:13-64
+50            android:authorities="com.chonbonstudios.smartplaylists.com.squareup.picasso"
+50-->[com.squareup.picasso:picasso:2.71828] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/921c10f85af6a6dde413a4ef96a733de/jetified-picasso-2.71828/AndroidManifest.xml:10:13-72
+51            android:exported="false" />
+51-->[com.squareup.picasso:picasso:2.71828] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/921c10f85af6a6dde413a4ef96a733de/jetified-picasso-2.71828/AndroidManifest.xml:11:13-37
+52
+53        <service
+53-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:15:9-18:49
+54            android:name="com.apple.android.music.playback.reporting.ReportingService"
+54-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:16:13-87
+55            android:exported="false"
+55-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:17:13-37
+56            android:label="Reporting Service" />
+56-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:18:13-46
+57        <service
+57-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:19:9-23:72
+58            android:name="com.apple.android.music.playback.reporting.ReportingServiceApi26"
+58-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:20:13-92
+59            android:exported="false"
+59-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:21:13-37
+60            android:label="Reporting Service"
+60-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:22:13-46
+61            android:permission="android.permission.BIND_JOB_SERVICE" />
+61-->[:mediaplayback-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/a521e13f7a0f2ef4efd75424062d747f/jetified-mediaplayback-release-1.0.0/AndroidManifest.xml:23:13-69
+62
 63        <activity
-63-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:19:9-35:20
-64            android:name="com.apple.android.sdk.authentication.SDKUriHandlerActivity"
-64-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:20:13-86
-65            android:launchMode="singleTask"
-65-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:21:13-44
-66            android:screenOrientation="portrait"
-66-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:22:13-49
-67            android:theme="@style/MusicKitAuthTheme" >
-67-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:23:13-53
-68            <intent-filter>
-68-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:24:13-34:29
-69                <action android:name="android.intent.action.VIEW" />
-69-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:23:17-69
-69-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:23:25-66
-70
-71                <category android:name="android.intent.category.DEFAULT" />
-71-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:25:17-76
-71-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:25:27-73
-72                <category android:name="android.intent.category.BROWSABLE" />
-72-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:26:17-78
-72-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:26:27-75
-73
-74                <data
-74-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:28:17-74
-75                    android:host="com.chonbonstudios.smartplaylists"
-75-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:28:23-71
-76                    android:pathPattern="/authenticateresult.*"
-77                    android:scheme="musicsdk" />
-77-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:29:23-45
-78            </intent-filter>
-79        </activity>
-80
-81        <provider
-81-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:23:9-27:43
-82            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-82-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:24:13-79
-83            android:authorities="com.chonbonstudios.smartplaylists.lifecycle-process"
-83-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:25:13-69
-84            android:exported="false"
-84-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:26:13-37
-85            android:multiprocess="true" />
-85-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:27:13-40
-86    </application>
-87
-88</manifest>
+63-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:14:9-18:20
+64            android:name="com.apple.android.sdk.authentication.StartAuthenticationActivity"
+64-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:15:13-92
+65            android:screenOrientation="portrait"
+65-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:16:13-49
+66            android:theme="@style/MusicKitAuthTheme" >
+66-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:17:13-53
+67        </activity>
+68        <activity
+68-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:19:9-35:20
+69            android:name="com.apple.android.sdk.authentication.SDKUriHandlerActivity"
+69-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:20:13-86
+70            android:launchMode="singleTask"
+70-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:21:13-44
+71            android:screenOrientation="portrait"
+71-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:22:13-49
+72            android:theme="@style/MusicKitAuthTheme" >
+72-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:23:13-53
+73            <intent-filter>
+73-->[:musickitauth-release-1.0.0:] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/95e8ec2327073b826e2f6c5eb6602dcf/jetified-musickitauth-release-1.0.0/AndroidManifest.xml:24:13-34:29
+74                <action android:name="android.intent.action.VIEW" />
+74-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:23:17-69
+74-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:23:25-66
+75
+76                <category android:name="android.intent.category.DEFAULT" />
+76-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:25:17-76
+76-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:25:27-73
+77                <category android:name="android.intent.category.BROWSABLE" />
+77-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:26:17-78
+77-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:26:27-75
+78
+79                <data
+79-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:28:17-74
+80                    android:host="com.chonbonstudios.smartplaylists"
+80-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:28:23-71
+81                    android:pathPattern="/authenticateresult.*"
+82                    android:scheme="musicsdk" />
+82-->/Users/chonbonstudios/Desktop/App Projects(Local)/Android/SmartPlaylists/app/src/main/AndroidManifest.xml:29:23-45
+83            </intent-filter>
+84        </activity>
+85
+86        <provider
+86-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:23:9-27:43
+87            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+87-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:24:13-79
+88            android:authorities="com.chonbonstudios.smartplaylists.lifecycle-process"
+88-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:25:13-69
+89            android:exported="false"
+89-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:26:13-37
+90            android:multiprocess="true" />
+90-->[androidx.lifecycle:lifecycle-process:2.0.0] /Users/chonbonstudios/.gradle/caches/transforms-2/files-2.1/e953a6c6aa473293c3a94459e549ecaa/jetified-lifecycle-process-2.0.0/AndroidManifest.xml:27:13-40
+91    </application>
+92
+93</manifest>

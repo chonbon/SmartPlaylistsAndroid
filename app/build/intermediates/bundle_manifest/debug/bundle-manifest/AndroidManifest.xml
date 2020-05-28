@@ -45,6 +45,11 @@
         </activity>
         <activity android:name="com.chonbonstudios.smartplaylists.NotSignedInActivity" />
 
+        <provider
+            android:name="com.squareup.picasso.PicassoProvider"
+            android:authorities="com.chonbonstudios.smartplaylists.com.squareup.picasso"
+            android:exported="false" />
+
         <service
             android:name="com.apple.android.music.playback.reporting.ReportingService"
             android:exported="false"

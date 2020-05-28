@@ -61,6 +61,7 @@ public class NotSignedInActivity extends AppCompatActivity {
         //startActivity(new Intent(NotSignedInActivity.this, MainActivity.class));
         //apiLoginSpotify();
         mWebView.loadUrl(getString(R.string.api_spotify_login));
+        finish();
     }
 
     // User clicks to log in to Apple Music
@@ -77,6 +78,7 @@ public class NotSignedInActivity extends AppCompatActivity {
                 .setStartScreenMessage("Authorize to start transfering playlists!")
                 .build();
         startActivityForResult(intent,REQUESTCODE_APPLEMUSIC_AUTH);
+
     }
 
     // on activity result, mainly checking from apple music redirect
@@ -92,6 +94,7 @@ public class NotSignedInActivity extends AppCompatActivity {
                 dh.writeStringData(dh.APPLE_MUSIC,musicUserToken);
                 startActivity(new Intent(NotSignedInActivity.this,
                         MainActivity.class).putExtra("AppleMusicToken", musicUserToken));
+                finish();
             } else {
                 TokenError error = tokenResult.getError();
                 Log.e(TAG, "Apple music error" + error);

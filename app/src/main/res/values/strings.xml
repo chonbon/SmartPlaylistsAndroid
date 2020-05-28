@@ -16,7 +16,7 @@
 
     //Spotify Api Requests
     <string name="api_spotify_login">https://accounts.spotify.com/authorize?client_id=ebb86a96bcff41709ee2a7acc0bbd94c&amp;response_type=token&amp;scope=playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private&amp;redirect_uri=https://smartplaylists.chonbonstudios.com/auth</string>
-    <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists</string>
+    <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists?limit=50</string>
 
     //Apple Music Api
     <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNjA0OTM0LCJleHAiOjE2MDYzODM3MzR9.yaod-8EI1PwoGOi7b1Ujo-drqz0pVNxWnI41btm5fLQYWLtubMKFYD2gTPaa-VW5SK-w1D6YyRtVKKvs-5dtWw</string>

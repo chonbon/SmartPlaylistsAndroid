@@ -686,6 +686,7 @@ color foreground_material_light
 color gray
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color lightGreen
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -1105,6 +1106,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_notifications_black_24dp
+drawable ic_settings_white_24dp
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
@@ -1189,6 +1191,7 @@ id alertTitle
 id all
 id always
 id app_logo
+id appleWrap
 id applemusiclogo
 id arrows
 id async
@@ -1232,6 +1235,7 @@ id dialog_button
 id dimensions
 id direct
 id disableHome
+id divider
 id edit_query
 id end
 id enterAlways
@@ -1281,7 +1285,7 @@ id mini
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
-id my_toolbar
+id mybutton
 id nav_controller_view_tag
 id navigation_header_container
 id never
@@ -1342,6 +1346,7 @@ id snap
 id snapMargins
 id spacer
 id split_action_bar
+id spotifyWrap
 id spread
 id spread_inside
 id src_atop
@@ -1388,10 +1393,18 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id txtAppleStatus
 id txtArrowButton
 id txtPlaylistName
+id txtServiceApple
 id txtServiceListName
+id txtServiceSpotify
+id txtServicesManagerHeader
+id txtSettingsHeader
 id txtSplashScreen
+id txtSpotifyStatus
+id txtUserLevelHeader
+id txtUserPaidStatus
 id txtWelcome
 id unchecked
 id uniform
@@ -1401,6 +1414,7 @@ id useLogo
 id view_offset_helper
 id visible
 id webView
+id webViewSettings
 id withText
 id wrap
 id wrap_content
@@ -1461,6 +1475,7 @@ layout abc_tooltip
 layout activity_approve_access
 layout activity_main
 layout activity_not_signed_in
+layout activity_settings
 layout activity_splash
 layout activity_transfer
 layout custom_dialog
@@ -1492,6 +1507,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu mymenu
 mipmap ic_launcher
 mipmap ic_launcher_round
 string abc_action_bar_home_description

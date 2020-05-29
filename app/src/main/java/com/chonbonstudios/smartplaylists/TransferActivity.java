@@ -13,9 +13,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.io.IOException;
@@ -38,13 +41,14 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
     private RecyclerView listOfServices, listOfPlaylists;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView.Adapter servicesAdapter;
+    private ListOfServicesAdapter servicesAdapter;
     private PlaylistAdapter playlistsAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager,layoutManager2;
     private ArrayList<StreamingServices> servicesList;
     private ArrayList<Playlist> spotifyList;
     private ArrayList<Playlist> appleList;
 
+    private boolean serviceListActive = false;
     OkHttpClient client;
     String token;
     DataHandler dh;
@@ -53,24 +57,23 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
+        //init client and datahandler
         dh = new DataHandler(this);
         client = new OkHttpClient();
-        spotifyList = new ArrayList<>();
-        appleList = new ArrayList<>();
 
+        //fill out arraylist
+        createServiceList();
+
+        //find views
         listOfServices = findViewById(R.id.listStreamingServices);
         listOfPlaylists = findViewById(R.id.listPlaylistChooser);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
         swipeRefreshLayout.setVisibility(View.INVISIBLE);
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         listOfServices.setHasFixedSize(true);
         listOfPlaylists.setHasFixedSize(false);
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-
-        listOfServices.setLayoutManager(layoutManager);
-
 
         //add horizontal divider decoration
         RecyclerView.ItemDecoration itemDecoration = new
@@ -78,13 +81,22 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         listOfServices.addItemDecoration(itemDecoration);
         listOfPlaylists.addItemDecoration(itemDecoration);
 
-        //fill out arraylist
-        createServiceList();
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager2 = new LinearLayoutManager(this);
+
+        listOfServices.setLayoutManager(layoutManager);
+        listOfPlaylists.setLayoutManager(layoutManager2);
+
 
         // specify an adapter and set the adapter to the list
         servicesAdapter = new ListOfServicesAdapter(servicesList, this);
-
         listOfServices.setAdapter(servicesAdapter);
+        serviceListActive = true;
+
+        spotifyList = new ArrayList<>();
+        playlistsAdapter = new PlaylistAdapter(spotifyList, this);
+        listOfPlaylists.setAdapter(playlistsAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -92,11 +104,11 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                if(dh.getSpotifyUserToken() != ""){
+                if(!dh.getSpotifyUserToken().equals("")){
                     spotifySearchPlaylists();
                 }
 
-                if(dh.getAppleMusicUserToken() != ""){
+                if(!dh.getAppleMusicUserToken().equals("")){
                     appleSearchPlaylists();
                 }
             }
@@ -108,7 +120,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         servicesList = new ArrayList<>();
         StreamingServices temp;
 
-        if(dh.getSpotifyUserToken() != ""){
+        if(!dh.getSpotifyUserToken().equals("")){
             temp = new StreamingServices("Spotify", true);
             spotifySearchPlaylists();
             servicesList.add(temp);
@@ -117,7 +129,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
             servicesList.add(temp);
         }
 
-        if(dh.getAppleMusicUserToken() != ""){
+        if(!dh.getAppleMusicUserToken().equals("")){
             temp = new StreamingServices("Apple Music", true);
             appleSearchPlaylists();
             servicesList.add(temp);
@@ -132,27 +144,57 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     @Override
     public void onServiceClick(int position) {
         if(position == 0){
-            if(dh.getSpotifyUserToken() != "") {
-                layoutManager = new LinearLayoutManager(this);
-                listOfPlaylists.setLayoutManager(layoutManager);
-                playlistsAdapter = new PlaylistAdapter(spotifyList, this);
-                listOfPlaylists.setAdapter(playlistsAdapter);
+            if(!dh.getSpotifyUserToken().equals("")) {
+                playlistsAdapter.clear();
+                playlistsAdapter.addAll(spotifyList);
                 listOfServices.setVisibility(View.INVISIBLE);
                 listOfPlaylists.setVisibility(View.VISIBLE);
                 swipeRefreshLayout.setVisibility(View.VISIBLE);
+                serviceListActive = false;
             }
         } else {
-            if(dh.getAppleMusicUserToken() != "") {
-                layoutManager = new LinearLayoutManager(this);
-                listOfPlaylists.setLayoutManager(layoutManager);
-                playlistsAdapter = new PlaylistAdapter(appleList, this);
-                listOfPlaylists.setAdapter(playlistsAdapter);
+            if(!dh.getAppleMusicUserToken().equals("")) {
+                playlistsAdapter.clear();
+                playlistsAdapter.addAll(appleList);
                 listOfServices.setVisibility(View.INVISIBLE);
                 listOfPlaylists.setVisibility(View.VISIBLE);
                 swipeRefreshLayout.setVisibility(View.VISIBLE);
+                serviceListActive = false;
             }
         }
     }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.mybutton) {
+            startActivity(new Intent(TransferActivity.this, SettingsActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //On back button pressed, revert to last state first before going back in stack
+    @Override
+    public void onBackPressed() {
+        if(serviceListActive){
+            super.onBackPressed();
+        } else {
+            serviceListActive = true;
+            listOfPlaylists.setVisibility(View.INVISIBLE);
+            listOfServices.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     //Apple Music api
 
@@ -169,7 +211,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         call.enqueue(new Callback(){
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response){
                 try {
                     if(response.isSuccessful()){
                         String res = response.body().string();
@@ -191,6 +233,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     }
 
     public void appleLoadPlaylists(String response) {
+        appleList = new ArrayList<>();
         JSONArray jArray = new JSONArray();
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -246,7 +289,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         call.enqueue(new Callback(){
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response){
                 try {
                     if(response.isSuccessful()){
                         String res = response.body().string();
@@ -271,6 +314,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
     // Loads playlists from response
     private void spotifyLoadPlaylists(String response) {
+        spotifyList = new ArrayList<>();
         JSONArray jArray = new JSONArray();
         try {
             JSONObject jsonObject = new JSONObject(response);

@@ -2,27 +2,28 @@ package com.chonbonstudios.smartplaylists;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Toast;
-
 import com.apple.android.sdk.authentication.AuthIntentBuilder;
 import com.apple.android.sdk.authentication.AuthenticationFactory;
 import com.apple.android.sdk.authentication.AuthenticationManager;
 import com.apple.android.sdk.authentication.TokenError;
 import com.apple.android.sdk.authentication.TokenResult;
 import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
-
 import org.jetbrains.annotations.NotNull;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 // This activity is for initial launch or the user is signed out of all streaming services,
@@ -35,6 +36,7 @@ public class NotSignedInActivity extends AppCompatActivity {
     private DataHandler dh;
     OkHttpClient client;
     WebView mWebView;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,11 @@ public class NotSignedInActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.webView);
         client = new OkHttpClient();
 
+        Uri uri = getIntent().getData();
+        Log.v(TAG, ""+ uri);
+
+        if(uri != null)parseToken(uri);
+
         // apple music sdk auth manager init
         if (authenticationManager == null) {
             authenticationManager = AuthenticationFactory.createAuthenticationManager(this);
@@ -54,14 +61,13 @@ public class NotSignedInActivity extends AppCompatActivity {
 
     }
 
-
     // User clicks to log in to spotify
     public void loginSpotify(View view) {
         //Toast.makeText(this, "Clicked Spotify Login", Toast.LENGTH_SHORT).show();
         //startActivity(new Intent(NotSignedInActivity.this, MainActivity.class));
         //apiLoginSpotify();
         mWebView.loadUrl(getString(R.string.api_spotify_login));
-        finish();
+        //finish();
     }
 
     // User clicks to log in to Apple Music
@@ -78,7 +84,52 @@ public class NotSignedInActivity extends AppCompatActivity {
                 .setStartScreenMessage("Authorize to start transfering playlists!")
                 .build();
         startActivityForResult(intent,REQUESTCODE_APPLEMUSIC_AUTH);
+    }
 
+    //If there is a uri from the intent, parse the code and request an auth token and refresh
+    public void parseToken(Uri uri){
+        token = uri.getQueryParameter("code");
+        String base = getString(R.string.spotify_client_id) + ":" + getString(R.string.spotify_client_secret);
+        String encoded = Base64.encodeToString(base.getBytes(),Base64.NO_WRAP);
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("grant_type", "authorization_code")
+                .add("code",token)
+                .add("redirect_uri",getString(R.string.spotify_redirect)).build();
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_spotify_accesss))
+                .post(requestBody)
+                .header("Authorization", "Basic "+ encoded)
+                .build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback(){
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try {
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        Log.v(TAG, res);
+                        JSONObject object = new JSONObject(res);
+                        dh.writeStringData(dh.SPOTIFY, object.getString("access_token"));
+                        dh.writeStringData(dh.SPOTIFY_REFRESH, object.getString("refresh_token"));
+                        startActivity(new Intent(NotSignedInActivity.this, MainActivity.class));
+                        finish();
+                    }
+                    Log.e(TAG, response.toString());
+                } catch (IOException | JSONException e){
+                    Log.e(TAG, "IO Exception caught: ", e);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e(TAG, "IO Exception caught: ", e);
+            }
+        });
     }
 
     // on activity result, mainly checking from apple music redirect

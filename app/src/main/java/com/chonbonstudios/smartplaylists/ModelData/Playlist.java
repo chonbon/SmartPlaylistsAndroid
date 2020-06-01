@@ -9,10 +9,12 @@ public class Playlist {
     private ArrayList<Song> unMatchedTracks;
     private boolean isSelected;
     private String imageUrl = "";
+    private String source;
 
-    public Playlist(String name, String id){
+    public Playlist(String name, String id, String source){
         this.name = name;
         this.id = id;
+        this.source = source;
         this.tracks = new ArrayList<>();
         this.unMatchedTracks = new ArrayList<>();
     }
@@ -56,4 +58,9 @@ public class Playlist {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public String getSource() {
+        return source;
+    }
+
 }

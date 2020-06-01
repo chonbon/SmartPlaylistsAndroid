@@ -49,9 +49,8 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
     private ArrayList<Playlist> appleList;
 
     private boolean serviceListActive = false;
-    OkHttpClient client;
-    String token;
-    DataHandler dh;
+    private OkHttpClient client;
+    private DataHandler dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +231,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         });
     }
 
+    //Parse playlists into objects
     public void appleLoadPlaylists(String response) {
         appleList = new ArrayList<>();
         JSONArray jArray = new JSONArray();
@@ -246,7 +246,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
             try {
                 JSONObject temp = jArray.getJSONObject(i);
                 appleList.add(new Playlist(temp.getJSONObject("attributes").getString("name"),
-                        temp.getString("id")));
+                        temp.getString("id"),"APPLE_MUSIC"));
                 appleList.get(i).setImageUrl(temp.getJSONObject("attributes")
                         .getJSONObject("artwork").getString("url"));
             } catch (JSONException e) {
@@ -270,10 +270,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         }
 
     }
-
-    //Create or update playlists
-    public void appleCreatePlaylists(ArrayList<Playlist> playlists){}
-
 
     //Spotify api
 
@@ -327,7 +323,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
             try {
                 JSONObject temp = jArray.getJSONObject(i);
                 spotifyList.add(new Playlist(temp.getString("name"),
-                        temp.getString("id")));
+                        temp.getString("id"),"SPOTIFY"));
                 spotifyList.get(i).setImageUrl(temp.getJSONArray("images")
                         .getJSONObject(0).getString("url"));
             } catch (JSONException e) {
@@ -350,11 +346,6 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         }
     }
 
-    //Create or update playlists
-    public void spotifyCreatePlaylists(ArrayList<Playlist> playlists){
-
-    }
-
     //Refresh Token if expired
     public void spotifyGetRefreshToken(){
         String base = getString(R.string.spotify_client_id) + ":" + getString(R.string.spotify_client_secret);
@@ -374,7 +365,7 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
         call.enqueue(new Callback(){
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response){
                 try {
                     if(response.isSuccessful()){
                         String res = response.body().string();

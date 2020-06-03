@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
 import com.chonbonstudios.smartplaylists.ModelData.Playlist;
+import com.chonbonstudios.smartplaylists.ModelData.Song;
 import com.chonbonstudios.smartplaylists.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,8 +37,13 @@ public class TransferService extends IntentService {
 
     private DataHandler dh;
     private ArrayList<Playlist> playlists;
+    private int playlistsFinished = 0;
+    private int songsToTransfer = 0;
+    private int songsFound = 0;
 
     private OkHttpClient client;
+    private Message msg;
+
 
     public TransferService() {
         super("TransferService");
@@ -50,7 +56,7 @@ public class TransferService extends IntentService {
         final Handler handler = intent.getParcelableExtra("handler");
 
         playlists = dh.getPlaylistToTransfer();
-        Message msg;
+
 
         if(playlists == null || playlists.size() < 1){
             msg = new Message();
@@ -65,7 +71,7 @@ public class TransferService extends IntentService {
         //Apple music is the same as spotify, returns only 100 at a time
         switch(playlists.get(0).getSource()){
             case "APPLE_MUSIC": break;
-            case "SPOTIFY": apiSpotifyGetTracks(); break;
+            case "SPOTIFY": apiSpotifyGetTracks(handler); break;
             default: msg = new Message();
                 msg.obj = "Playlists source not supported at this time";
                 msg.what = STATUS_ERROR;
@@ -86,44 +92,33 @@ public class TransferService extends IntentService {
     //Spotify
     //Get Tracks this will iterate through each playlist selected and make the first call to get tracks
     //if paging is required then it will offload paging to a helper method
-    public void apiSpotifyGetTracks(){
+    public void apiSpotifyGetTracks(Handler handler){
         for(int i = 0; i < playlists.size(); i++){
             Request request = new Request.Builder()
                     .url(getString(R.string.api_spotify_gettracks, playlists.get(i).getId()))
                     .header("Authorization", "Bearer "+ dh.getSpotifyUserToken())
                     .build();
 
-            Call call = client.newCall(request);
 
-            call.enqueue(new Callback(){
+            // ensure the response (and underlying response body) is closed
+            try (Response response = client.newCall(request).execute()) {
+                if(response.isSuccessful()){
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    songsToTransfer += jsonObject.getInt("total");
 
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response){
-                    try {
-                        if(response.isSuccessful()){
-                            String res = response.body().string();
-                            Log.v(TAG, res);
-                            try {
-                                JSONObject object = new JSONObject(res);
+                    msg = new Message();
+                    msg.obj = songsToTransfer + " songs to transfer";
+                    msg.what = STATUS_RUNNING;
+                    handler.sendMessage(msg);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }else {
-                            Log.e(TAG, "Not Successful: " + response.body().string());
-                        }
-                    } catch (IOException e){
-                        Log.e(TAG, "IO Exception caught: ", e);
-                    }
-
+                    apiSpotifyGetTracksHelper(i,jsonObject);
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.e(TAG, "IO Exception caught: ", e);
-                }
-            });
         }
     }
 
@@ -191,6 +186,26 @@ public class TransferService extends IntentService {
 
     public void parseSpotifyTracks(JSONArray res, int playlistPos){
 
+        Song song;
+        JSONObject jsonObject;
+
+        for(int i = 0; i < res.length(); i++){
+            try {
+                jsonObject = res.getJSONObject(i);
+
+                song = new Song(jsonObject.getJSONObject("track").getJSONArray("artists")
+                        .getJSONObject(0).getString("name"),
+                        jsonObject.getJSONObject("track").getString("name"),
+                        jsonObject.getJSONObject("track").getJSONObject("album")
+                        .getString("name"));
+
+                playlists.get(playlistPos).addTrack(song);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }

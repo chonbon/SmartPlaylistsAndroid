@@ -20,6 +20,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/txtAppVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:text="@string/app_version"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserLevelHeader" />
+
                 <WebView
                     android:id="@+id/webViewSettings"
                     android:layout_width="0dp"
@@ -28,15 +40,17 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                </WebView>
 
                 <TextView
                     android:id="@+id/txtUserLevelHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="User Status"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/user_status"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -47,7 +61,7 @@
                     android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="?android:attr/listDivider"
                     android:backgroundTint="@color/secondaryDarkColor"
                     app:layout_constraintTop_toBottomOf="@+id/spotifyWrap" />
@@ -63,9 +77,9 @@
                         android:id="@+id/txtSpotifyStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:onClick="onClickSpotify"
-                        android:text="Log In"
+                        android:padding="20dp"
+                        android:text="@string/log_in"
                         android:textColor="@color/secondaryLightColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +92,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Spotify"
+                        android:text="@string/spotify"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +104,7 @@
                     android:id="@+id/appleWrap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/gray"
                     app:layout_constraintTop_toBottomOf="@id/txtServicesManagerHeader">
 
@@ -98,9 +112,9 @@
                         android:id="@+id/txtAppleStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:onClick="onClickApple"
-                        android:text="Log In"
+                        android:padding="20dp"
+                        android:text="@string/log_in"
                         android:textColor="@color/secondaryLightColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +127,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Apple Music"
+                        android:text="@string/apple_music"
                         android:textColor="@color/primaryDarkColor"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,8 +140,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Music Streaming Services"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/music_streaming_services"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -139,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Settings"
+                    android:text="@string/settings"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="36sp"
                     android:textStyle="bold"
@@ -152,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="Free"
+                    android:text="@string/free"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"

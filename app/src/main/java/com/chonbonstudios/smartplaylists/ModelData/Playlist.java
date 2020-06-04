@@ -19,6 +19,13 @@ public class Playlist {
         this.unMatchedTracks = new ArrayList<>();
     }
 
+    public Playlist(String name,  String source){
+        this.name = name;
+        this.source = source;
+        this.tracks = new ArrayList<>();
+        this.unMatchedTracks = new ArrayList<>();
+    }
+
     public void addTrack(Song temp){
         tracks.add(temp);
     }
@@ -33,6 +40,10 @@ public class Playlist {
 
     public String getId(){
         return id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
     public ArrayList<Song> getTracks() {

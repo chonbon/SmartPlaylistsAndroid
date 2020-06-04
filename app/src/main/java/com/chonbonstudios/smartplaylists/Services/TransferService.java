@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -37,6 +39,7 @@ public class TransferService extends IntentService {
 
     private DataHandler dh;
     private ArrayList<Playlist> playlists;
+    private ArrayList<Playlist> transferPlaylists;
     private int playlistsFinished = 0;
     private int songsToTransfer = 0;
     private int songsFound = 0;
@@ -47,13 +50,13 @@ public class TransferService extends IntentService {
 
     public TransferService() {
         super("TransferService");
-        dh = new DataHandler(this);
         client = new OkHttpClient();
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        final Handler handler = intent.getParcelableExtra("handler");
+        final Messenger handler = intent.getParcelableExtra("handler");
+        dh = new DataHandler(this);
 
         playlists = dh.getPlaylistToTransfer();
 
@@ -62,7 +65,11 @@ public class TransferService extends IntentService {
             msg = new Message();
             msg.obj = "Playlists object is null or less than 1";
             msg.what = STATUS_ERROR;
-            handler.sendMessage(msg);
+            try {
+                handler.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
 
         //First Step is to fill the song arrays of each playlist chosen
@@ -75,12 +82,37 @@ public class TransferService extends IntentService {
             default: msg = new Message();
                 msg.obj = "Playlists source not supported at this time";
                 msg.what = STATUS_ERROR;
-                handler.sendMessage(msg); break;
+                try {
+                    handler.send(msg);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
         //Second step is to search the destination service for the tracks and get an id of each track
+        //this is called from apiGetTrackHelper
 
         //Third step is to create the playlist and then submit all the track ids found
 
+    }
+
+    public void findSongsAtDest(Messenger handler){
+        switch(dh.getDestinationService()){
+            case DataHandler.DEST_SPOTIFY: //call to search music
+                                        break;
+            case DataHandler.DEST_APPLEMUSIC: apiFindSongsOnAppleMusic(handler);//call to search music
+                                        break;
+
+            default: msg = new Message();
+                msg.obj = "Destination is not specified or supported!";
+                msg.what = STATUS_ERROR;
+                try {
+                    handler.send(msg);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } break;
+
+        }
     }
 
     //APi Calls
@@ -88,11 +120,23 @@ public class TransferService extends IntentService {
     //Apple Music
     //Get Tracks
 
+    //Search music on apple
+    public void apiFindSongsOnAppleMusic(Messenger handler){
+        transferPlaylists = new ArrayList<>();
+
+        for(int i = 0; i < playlists.size(); i++){
+            transferPlaylists.add(new Playlist(playlists.get(i).getName(),"APPLE_MUSIC"));
+            for(int j = 0; j < playlists.get(i).getTracks().size(); j++){
+              //  String termSearch =
+            }
+        }
+    }
+
 
     //Spotify
     //Get Tracks this will iterate through each playlist selected and make the first call to get tracks
     //if paging is required then it will offload paging to a helper method
-    public void apiSpotifyGetTracks(Handler handler){
+    public void apiSpotifyGetTracks(Messenger handler){
         for(int i = 0; i < playlists.size(); i++){
             Request request = new Request.Builder()
                     .url(getString(R.string.api_spotify_gettracks, playlists.get(i).getId()))
@@ -109,13 +153,15 @@ public class TransferService extends IntentService {
                     msg = new Message();
                     msg.obj = songsToTransfer + " songs to transfer";
                     msg.what = STATUS_RUNNING;
-                    handler.sendMessage(msg);
+                    handler.send(msg);
 
-                    apiSpotifyGetTracksHelper(i,jsonObject);
+                    apiSpotifyGetTracksHelper(i,jsonObject,handler);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (RemoteException e) {
                 e.printStackTrace();
             }
 
@@ -124,13 +170,14 @@ public class TransferService extends IntentService {
 
     //Get tracks helper method, this will iterate through a single playlist and get all tracks
     // deals with paging
-    public void apiSpotifyGetTracksHelper(final int playlistPos, JSONObject playlistItems){
+    public void apiSpotifyGetTracksHelper(final int playlistPos, JSONObject playlistItems, Messenger handler){
         int trackTotal = 0;
         int offset = 0;
         try {
             trackTotal = playlistItems.getInt("total");
+            final int offsetTotal = (int) Math.ceil((double)trackTotal/100);
             //Round up to find the amount of times we need to iterate through the paging
-            for(int i = 0; i < (int) Math.ceil((double)trackTotal/100); i++){
+            for(int i = 0; i < offsetTotal; i++){
                 Request request = new Request.Builder()
                         .url(getString(R.string.api_spotify_gettracks, playlists.get(playlistPos).getId())+ "?offset=" + offset)
                         .header("Authorization", "Bearer "+ dh.getSpotifyUserToken())
@@ -177,6 +224,11 @@ public class TransferService extends IntentService {
                 // Iterate the offset by 100
                 offset += 100;
             }
+
+            // determine if the last parse just happened to move on to finding the songs
+            if(playlistPos == playlists.size() -1){
+                findSongsAtDest(handler);
+            }
         } catch (JSONException | InterruptedException e) {
             e.printStackTrace();
 
@@ -184,6 +236,7 @@ public class TransferService extends IntentService {
 
     }
 
+    //parses song arrays from response and adds them to the playlist song arraylist
     public void parseSpotifyTracks(JSONArray res, int playlistPos){
 
         Song song;
@@ -206,6 +259,7 @@ public class TransferService extends IntentService {
             }
 
         }
+
     }
 
 }

@@ -1,6 +1,8 @@
 <resources>
     //TextView sources
     <string name="app_name">Smart Playlists</string>
+    <string name="app_version">Version 0.1</string>
+
     <string name="title_activity_main_navi">MainNaviActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -14,6 +16,13 @@
     <string name="upgrade_to_pro">Upgrade to Pro</string>
     <string name="serviceholder">ServiceHolder</string>
     <string name="carrot_button"><![CDATA[>]]></string>
+    <string name="user_status">User Status</string>
+    <string name="log_in">Log In</string>
+    <string name="spotify">Spotify</string>
+    <string name="apple_music">Apple Music</string>
+    <string name="music_streaming_services">Music Streaming Services</string>
+    <string name="settings">Settings</string>
+    <string name="free">Free</string>
 
     //Spotify Api Requests
     <string name="spotify_client_id">ebb86a96bcff41709ee2a7acc0bbd94c</string>
@@ -27,4 +36,6 @@
     //Apple Music Api
     <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNjA0OTM0LCJleHAiOjE2MDYzODM3MzR9.yaod-8EI1PwoGOi7b1Ujo-drqz0pVNxWnI41btm5fLQYWLtubMKFYD2gTPaa-VW5SK-w1D6YyRtVKKvs-5dtWw</string>
     <string name="api_apple_get_all_playlists">https://api.music.apple.com/v1/me/library/playlists?limit=100</string>
+    <string name="api_apple_search_track">https://api.music.apple.com/v1/catalog/us/search</string>
+
 </resources>

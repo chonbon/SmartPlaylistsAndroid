@@ -16,6 +16,9 @@ public class DataHandler {
     public static final String APPLE_MUSIC = "APPLE_MUSIC_USER_TOKEN";
     public static final String USER = "USER_STATUS";
     public static final String PLAYLIST_TRANSFER = "PLAYLIST_TO_TRANSFER";
+    public static final String DEST = "DEST";
+    public static final int DEST_SPOTIFY = 0;
+    public static final int DEST_APPLEMUSIC = 1;
 
     private Context c;
 
@@ -39,6 +42,10 @@ public class DataHandler {
         sharedPreferences.edit().putString(name, data).apply();
     }
 
+    public void writeIntData(String name, int data){
+        sharedPreferences.edit().putInt(name, data).apply();
+    }
+
     public void writePlaylistTransferList(ArrayList<Playlist> data){
         sharedPreferences.edit().putString(PLAYLIST_TRANSFER, gson.toJson(data)).apply();
     }
@@ -53,6 +60,10 @@ public class DataHandler {
 
     public String getSpotifyRefreshToken(){
         return sharedPreferences.getString(SPOTIFY_REFRESH, "");
+    }
+
+    public int getDestinationService(){
+        return sharedPreferences.getInt(DEST,-1);
     }
 
     public String getUserStatus(){

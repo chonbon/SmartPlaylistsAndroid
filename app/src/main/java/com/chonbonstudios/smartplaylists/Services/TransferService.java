@@ -127,7 +127,22 @@ public class TransferService extends IntentService {
         for(int i = 0; i < playlists.size(); i++){
             transferPlaylists.add(new Playlist(playlists.get(i).getName(),"APPLE_MUSIC"));
             for(int j = 0; j < playlists.get(i).getTracks().size(); j++){
-              //  String termSearch =
+                Song song = playlists.get(i).getTracks().get(j);
+                String termSearch = (song.getTrack() + song.getArtist()).replace(' ', '+');
+
+                Request request = new Request.Builder()
+                        .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&type=songs")
+                        .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
+                        .header("Music-User-Token", dh.getAppleMusicUserToken())
+                        .build();
+
+                try(Response response = client.newCall(request).execute()){
+                    if(response.isSuccessful()){
+                        Log.v(TAG,"Apple Music Find Songs Response: " + response.body().string());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

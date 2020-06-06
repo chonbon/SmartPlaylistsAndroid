@@ -127,23 +127,65 @@ public class TransferService extends IntentService {
         for(int i = 0; i < playlists.size(); i++){
             transferPlaylists.add(new Playlist(playlists.get(i).getName(),"APPLE_MUSIC"));
             for(int j = 0; j < playlists.get(i).getTracks().size(); j++){
+
                 Song song = playlists.get(i).getTracks().get(j);
-                String termSearch = (song.getTrack() + song.getArtist()).replace(' ', '+');
+                String termSearch = (song.getTrack() + "+" + song.getArtist()).replace(' ', '+');
+                termSearch = termSearch.replace(".", "");
+                termSearch = termSearch.replace("(", "");
+                termSearch = termSearch.replace(")", "");
+                termSearch = termSearch.replace("'", "");
+                termSearch = termSearch.replace("-", "");
+                termSearch = termSearch.replace("?", "");
+                termSearch = termSearch.replace("&", "");
+                termSearch = termSearch.replace(",", "");
+                Log.v(TAG, "Term Search: " + termSearch);
 
                 Request request = new Request.Builder()
-                        .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&type=songs")
+                        .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&types=songs")
                         .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
-                        .header("Music-User-Token", dh.getAppleMusicUserToken())
                         .build();
 
                 try(Response response = client.newCall(request).execute()){
                     if(response.isSuccessful()){
-                        Log.v(TAG,"Apple Music Find Songs Response: " + response.body().string());
+                        String res = response.body().string();
+                        Log.v(TAG,"Apple Music Find Songs Response: " + res);
+                        appleMusicMatchSong(res,i,song);
+                    } else {
+                        Log.v(TAG,"Failed " + response.toString());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void appleMusicMatchSong(String res, int playlistPos, Song currentTrack){
+        try {
+            JSONArray songArray = new JSONObject(res).getJSONObject("results")
+                    .getJSONObject("songs").getJSONArray("data");
+
+            for(int i = 0; i < songArray.length(); i++){
+                JSONObject songObject = songArray.getJSONObject(i);
+                String artistName = songObject.getJSONObject("attributes")
+                        .getString("artistName");
+                String songName = songObject.getJSONObject("attributes")
+                        .getString("name");
+                String albumName = songObject.getJSONObject("attributes")
+                        .getString("albumName");
+
+                if(artistName.contains(currentTrack.getArtist())){
+                    if(songName.contains(currentTrack.getTrack())){
+                        Log.v(TAG,"Song Matched! " + songName);
+                        Song song = new Song(artistName, songName, albumName);
+                        song.setId(songObject.getString("id"));
+                        transferPlaylists.get(playlistPos).addTrack(song);
+                        break;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -213,7 +255,6 @@ public class TransferService extends IntentService {
                                 try {
                                     JSONObject object = new JSONObject(res);
                                     parseSpotifyTracks(object.getJSONArray("items"), playlistPos);
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

@@ -26,13 +26,17 @@ import java.util.concurrent.CountDownLatch;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
 public class TransferService extends IntentService {
     private static final String TAG = TransferService.class.getSimpleName();
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_FINISHED = 1;
     public static final int STATUS_ERROR = 2;
@@ -129,7 +133,7 @@ public class TransferService extends IntentService {
             for(int j = 0; j < playlists.get(i).getTracks().size(); j++){
 
                 Song song = playlists.get(i).getTracks().get(j);
-                String termSearch = (song.getTrack() + "+" + song.getArtist()).replace(' ', '+');
+                String termSearch = (song.getTrack() + "+" + song.getArtist());
                 termSearch = termSearch.replace(".", "");
                 termSearch = termSearch.replace("(", "");
                 termSearch = termSearch.replace(")", "");
@@ -138,7 +142,8 @@ public class TransferService extends IntentService {
                 termSearch = termSearch.replace("?", "");
                 termSearch = termSearch.replace("&", "");
                 termSearch = termSearch.replace(",", "");
-                Log.v(TAG, "Term Search: " + termSearch);
+                termSearch.replace(' ', '+');
+                //Log.v(TAG, "Term Search: " + termSearch);
 
                 Request request = new Request.Builder()
                         .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&types=songs")
@@ -148,7 +153,7 @@ public class TransferService extends IntentService {
                 try(Response response = client.newCall(request).execute()){
                     if(response.isSuccessful()){
                         String res = response.body().string();
-                        Log.v(TAG,"Apple Music Find Songs Response: " + res);
+                        //Log.v(TAG,"Apple Music Find Songs Response: " + res);
                         appleMusicMatchSong(res,i,song);
                     } else {
                         Log.v(TAG,"Failed " + response.toString());
@@ -158,8 +163,18 @@ public class TransferService extends IntentService {
                 }
             }
         }
+
+        try {
+            apiCreatePlaylistsAppleMusic(handler);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    //Takes in a response from the search query and parses the songs, finds the best match and adds
+    // the song to the array
     public void appleMusicMatchSong(String res, int playlistPos, Song currentTrack){
         try {
             JSONArray songArray = new JSONObject(res).getJSONObject("results")
@@ -174,8 +189,9 @@ public class TransferService extends IntentService {
                 String albumName = songObject.getJSONObject("attributes")
                         .getString("albumName");
 
-                if(artistName.contains(currentTrack.getArtist())){
-                    if(songName.contains(currentTrack.getTrack())){
+                Log.v(TAG,"Comparison:Spotify " + currentTrack.getArtist() + " " + currentTrack.getTrack() + " vs apple " + artistName + " " + songName);
+                if(artistName.toLowerCase().contains(currentTrack.getArtist().toLowerCase()) || currentTrack.getArtist().toLowerCase().contains(artistName.toLowerCase())){
+                    if(songName.toLowerCase().contains(currentTrack.getTrack().toLowerCase()) || currentTrack.getTrack().toLowerCase().contains(songName.toLowerCase())){
                         Log.v(TAG,"Song Matched! " + songName);
                         Song song = new Song(artistName, songName, albumName);
                         song.setId(songObject.getString("id"));
@@ -186,6 +202,60 @@ public class TransferService extends IntentService {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    //this will create all playlists and add all tracks from said playlists
+    public void apiCreatePlaylistsAppleMusic(Messenger Handler) throws JSONException, IOException {
+        for(int i = 0; i < transferPlaylists.size();i++){
+            // Create playlistObject that will be sent to apple music
+            JSONObject playlistObject = new JSONObject();
+            // Create attributes object to add
+            JSONObject attributesObject = new JSONObject();
+            attributesObject.put("name", transferPlaylists.get(i).getName());
+            attributesObject.put("description", "Playlist transfered from " +
+                    playlists.get(i).getSource() +
+                    " by Smart Playlists! Get on Google Play or App Store now!");
+
+            playlistObject.put("attributes",attributesObject);
+
+            //Create data array of songs
+            JSONArray dataArray = new JSONArray();
+            for(int j = 0; j < transferPlaylists.get(i).getTracks().size();j++){
+                JSONObject dataObject = new JSONObject();
+                dataObject.put("id", transferPlaylists.get(i).getTracks().get(j).getId());
+                dataObject.put("type", "songs");
+                dataArray.put(dataObject);
+            }
+
+            //add data array to tracks object
+            JSONObject tracksObject = new JSONObject();
+            tracksObject.put("data", dataArray);
+
+            JSONObject relationshipsObject = new JSONObject();
+            relationshipsObject.put("tracks", tracksObject);
+
+            //finally add relationships object to playlistObject
+            playlistObject.put("relationships",relationshipsObject);
+
+            Log.v(TAG, playlistObject.toString());
+            // send object via post
+
+            RequestBody body = RequestBody.create(playlistObject.toString(), JSON); // new
+            // RequestBody body = RequestBody.create(JSON, json); // old
+            Request request = new Request.Builder()
+                    .url(getString(R.string.api_apple_create_playlists))
+                    .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
+                    .header("Music-User-Token", dh.getAppleMusicUserToken())
+                    .post(body)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if(response.isSuccessful()){
+                    Log.v(TAG, "create playlist success " + response.body().string());
+                }
+            }
+
         }
     }
 

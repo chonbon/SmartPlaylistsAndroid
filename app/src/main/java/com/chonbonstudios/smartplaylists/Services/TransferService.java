@@ -21,8 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -119,6 +121,12 @@ public class TransferService extends IntentService {
         }
     }
 
+    public String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
+
     //APi Calls
 
     //Apple Music
@@ -134,19 +142,14 @@ public class TransferService extends IntentService {
 
                 Song song = playlists.get(i).getTracks().get(j);
                 String termSearch = (song.getTrack() + "+" + song.getArtist());
-                termSearch = termSearch.replace(".", "");
-                termSearch = termSearch.replace("(", "");
-                termSearch = termSearch.replace(")", "");
-                termSearch = termSearch.replace("'", "");
-                termSearch = termSearch.replace("-", "");
-                termSearch = termSearch.replace("?", "");
                 termSearch = termSearch.replace("&", "");
-                termSearch = termSearch.replace(",", "");
+                termSearch = termSearch.replace("?", "");
+                termSearch = termSearch.replace("#", "");
                 termSearch.replace(' ', '+');
-                //Log.v(TAG, "Term Search: " + termSearch);
+                Log.v(TAG, "Term Search: " + termSearch);
 
                 Request request = new Request.Builder()
-                        .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&types=songs")
+                        .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&limit=20"+"&types=songs")
                         .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
                         .build();
 
@@ -154,7 +157,7 @@ public class TransferService extends IntentService {
                     if(response.isSuccessful()){
                         String res = response.body().string();
                         //Log.v(TAG,"Apple Music Find Songs Response: " + res);
-                        appleMusicMatchSong(res,i,song);
+                        appleMusicMatchSong(res,i,song,false);
                     } else {
                         Log.v(TAG,"Failed " + response.toString());
                     }
@@ -175,32 +178,134 @@ public class TransferService extends IntentService {
 
     //Takes in a response from the search query and parses the songs, finds the best match and adds
     // the song to the array
-    public void appleMusicMatchSong(String res, int playlistPos, Song currentTrack){
+    public void appleMusicMatchSong(String res, int playlistPos, Song currentTrack, boolean lastSearch){
         try {
             JSONArray songArray = new JSONObject(res).getJSONObject("results")
                     .getJSONObject("songs").getJSONArray("data");
+            int songPos = -1;
+            int diffName = 900;
+            boolean matched = false;
 
             for(int i = 0; i < songArray.length(); i++){
+                //Apple current track details
                 JSONObject songObject = songArray.getJSONObject(i);
                 String artistName = songObject.getJSONObject("attributes")
                         .getString("artistName");
+                artistName = deAccent(artistName);
                 String songName = songObject.getJSONObject("attributes")
-                        .getString("name");
+                        .getString("name").replace("(", "")
+                        .replace(")", "").replace("-", "");
+                songName = deAccent(songName);
                 String albumName = songObject.getJSONObject("attributes")
                         .getString("albumName");
 
-                Log.v(TAG,"Comparison:Spotify " + currentTrack.getArtist() + " " + currentTrack.getTrack() + " vs apple " + artistName + " " + songName);
-                if(artistName.toLowerCase().contains(currentTrack.getArtist().toLowerCase()) || currentTrack.getArtist().toLowerCase().contains(artistName.toLowerCase())){
-                    if(songName.toLowerCase().contains(currentTrack.getTrack().toLowerCase()) || currentTrack.getTrack().toLowerCase().contains(songName.toLowerCase())){
-                        Log.v(TAG,"Song Matched! " + songName);
-                        Song song = new Song(artistName, songName, albumName);
-                        song.setId(songObject.getString("id"));
-                        transferPlaylists.get(playlistPos).addTrack(song);
-                        break;
+                //source current track details
+                String sourceArtist = currentTrack.getArtist();
+                sourceArtist = deAccent(sourceArtist);
+                String sourceName = currentTrack.getTrack().replace("(", "")
+                        .replace(")", "").replace("-", "");
+                sourceName = deAccent(sourceName);
+                String sourceAlbum = currentTrack.getAlbum();
+
+                int diff = songName.compareToIgnoreCase(sourceName);
+
+                Log.v(TAG,"Comparison:Source " + sourceArtist + " : " + sourceName +
+                        " vs apple " + artistName + " : " + songName);
+
+                Log.v(TAG, "Compare Value = Artist Name: " +
+                        artistName.compareToIgnoreCase(sourceArtist) + " song name: " +
+                        diff);
+
+                if(artistName.toLowerCase().contains(sourceArtist.toLowerCase()) ||
+                        sourceArtist.toLowerCase().contains(artistName.toLowerCase())){
+
+                    if(songName.toLowerCase().contains(sourceName.toLowerCase()) ||
+                            diff >= 0){
+
+                        //exact match
+                        if(songName.compareToIgnoreCase(sourceName) == 0) {
+                            Log.v(TAG, "Song Matched! " + songName);
+                            Song song = new Song(artistName, songName, albumName);
+                            song.setId(songObject.getString("id"));
+                            transferPlaylists.get(playlistPos).addTrack(song);
+                            matched = true;
+                            break;
+                        }
+
+                        //Not an exact match, search and find the closest to zero.
+                        else {
+
+                            //test against last one
+                            if(diff < diffName) {
+                                songPos = i;
+                                diffName = diff;
+                            }
+
+                        }
+
                     }
                 }
             }
+
+            //testing results
+            if(diffName != 900 && !matched){
+                JSONObject songObject = songArray.getJSONObject(songPos);
+                String artistName = songObject.getJSONObject("attributes")
+                        .getString("artistName");
+                artistName = deAccent(artistName);
+                String songName = songObject.getJSONObject("attributes")
+                        .getString("name").replace("(", "")
+                        .replace(")", "").replace("-", "");
+                songName = deAccent(songName);
+                String albumName = songObject.getJSONObject("attributes")
+                        .getString("albumName");
+                Log.v(TAG, "Song Matched! " + songName);
+                Song song = new Song(artistName, songName, albumName);
+                song.setId(songObject.getString("id"));
+                transferPlaylists.get(playlistPos).addTrack(song);
+            } else if(matched){
+                //do nothing, we matched
+            } else {
+                //retest with another search query
+                if(!lastSearch) {
+                    apiFindSongReverseSearchApple(currentTrack, playlistPos);
+                } else {
+                    transferPlaylists.get(playlistPos).addUnMatchedTracks(currentTrack);
+                }
+            }
         } catch (JSONException e) {
+            e.printStackTrace();
+            //array or response body error, retry call artist only
+            if(!lastSearch) {
+                apiFindSongReverseSearchApple(currentTrack, playlistPos);
+            } else {
+                transferPlaylists.get(playlistPos).addUnMatchedTracks(currentTrack);
+            }
+        }
+    }
+
+    public void apiFindSongReverseSearchApple(Song song, int playlistPos){
+        String termSearch = (song.getArtist() + "+" + song.getTrack());
+        termSearch = termSearch.replace("&", "");
+        termSearch = termSearch.replace("?", "");
+        termSearch = termSearch.replace("#", "");
+        termSearch.replace(' ', '+');
+        Log.v(TAG, "Term Search: " + termSearch);
+
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_apple_search_track) + "?term="+termSearch+"&limit=20"+"&types=songs")
+                .header("Authorization", "Bearer "+ getString(R.string.apple_dev_token))
+                .build();
+
+        try(Response response = client.newCall(request).execute()){
+            if(response.isSuccessful()){
+                String res = response.body().string();
+                //Log.v(TAG,"Apple Music Find Songs Response: " + res);
+                appleMusicMatchSong(res,playlistPos,song,true);
+            } else {
+                Log.v(TAG,"Failed " + response.toString());
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -253,6 +358,8 @@ public class TransferService extends IntentService {
             try (Response response = client.newCall(request).execute()) {
                 if(response.isSuccessful()){
                     Log.v(TAG, "create playlist success " + response.body().string());
+                    Log.v(TAG, "Couldnt match " +
+                            transferPlaylists.get(i).getUnMatchedTracks().size() + " Songs");
                 }
             }
 

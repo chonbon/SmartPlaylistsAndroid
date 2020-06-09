@@ -4,6 +4,245 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryLightColor"
     tools:context=".ResultActivity">
+
+    <TextView
+        android:id="@+id/txtResultTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Transfering Playlists"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtFetchingInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="Fetching playlist info:"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtResultTitle" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtFetchingInfo"
+        app:layout_constraintStart_toEndOf="@+id/txtFetchingInfo"
+        app:layout_constraintTop_toTopOf="@+id/txtFetchingInfo">
+
+        <TextView
+            android:id="@+id/txtTotalSongs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="1000 Songs"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtFetchingPlaylistTotal" />
+
+        <TextView
+            android:id="@+id/txtFetchingPlaylistTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Playlists"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/primaryTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFetchingInfo" />
+
+    <ProgressBar
+        android:id="@+id/progressStageOne"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
+    <TextView
+        android:id="@+id/txtMatchingSongs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Matching Songs:"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/primaryTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMatchingSongs" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMatchingSongs"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="@+id/txtMatchingSongs">
+
+        <TextView
+            android:id="@+id/txtMatchRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="100% Match Rate"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtUnmatchedSongs" />
+
+        <TextView
+            android:id="@+id/txtUnmatchedSongs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="2 Songs Not matched"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtSongsMatched" />
+
+        <TextView
+            android:id="@+id/txtSongsMatched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500 Songs Matched"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressStageTwo"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout3" />
+
+    <TextView
+        android:id="@+id/txtCreatingPlaylists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Creating Playlists!"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/primaryTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCreatingPlaylists" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/txtCreatingPlaylists"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintTop_toTopOf="@+id/txtCreatingPlaylists">
+
+        <TextView
+            android:id="@+id/txtPlaylistsCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/2 Playlists Created"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressStageThree"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
+
+    <TextView
+        android:id="@+id/txtComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Complete!"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+    <ImageView
+        android:id="@+id/checkStageOne"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+        app:srcCompat="@drawable/ic_green_check_24" />
+
+    <ImageView
+        android:id="@+id/checkStageTwo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/constraintLayout3"
+        app:layout_constraintTop_toTopOf="@id/constraintLayout3"
+        app:srcCompat="@drawable/ic_green_check_24" />
+
+    <ImageView
+        android:id="@+id/checkStageThree"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/constraintLayout4"
+        app:layout_constraintTop_toTopOf="@id/constraintLayout4"
+        app:srcCompat="@drawable/ic_green_check_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

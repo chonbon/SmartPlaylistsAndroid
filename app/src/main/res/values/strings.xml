@@ -36,7 +36,9 @@
     //Apple Music Api
     <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNjA0OTM0LCJleHAiOjE2MDYzODM3MzR9.yaod-8EI1PwoGOi7b1Ujo-drqz0pVNxWnI41btm5fLQYWLtubMKFYD2gTPaa-VW5SK-w1D6YyRtVKKvs-5dtWw</string>
     <string name="api_apple_get_all_playlists">https://api.music.apple.com/v1/me/library/playlists?limit=100</string>
+    <string name ="api_apple_get_tracks_from_playlist">https://api.music.apple.com/v1/me/library/playlists/</string>
     <string name="api_apple_search_track">https://api.music.apple.com/v1/catalog/us/search</string>
     <string name="api_apple_create_playlists">https://api.music.apple.com/v1/me/library/playlists</string>
+    <string name="api_apple_add_tracks_to_playlists">https://api.music.apple.com/v1/me/library/playlists/%1$s/tracks</string>
 
 </resources>

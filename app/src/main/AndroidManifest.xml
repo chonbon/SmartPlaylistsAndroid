@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+            <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-7967585443791563~5398742396"/>
+
         <activity android:name=".ResultActivity"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".SplashActivity">

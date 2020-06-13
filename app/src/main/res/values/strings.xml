@@ -42,4 +42,7 @@
     <string name="api_apple_create_playlists">https://api.music.apple.com/v1/me/library/playlists</string>
     <string name="api_apple_add_tracks_to_playlists">https://api.music.apple.com/v1/me/library/playlists/%1$s/tracks</string>
 
+    //ADS
+    <string name="native_ad_list_v1">ca-app-pub-7967585443791563/2630970645</string>
+
 </resources>

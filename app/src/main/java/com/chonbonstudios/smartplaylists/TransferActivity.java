@@ -30,6 +30,7 @@ import com.chonbonstudios.smartplaylists.Adapters.PlaylistAdapter;
 import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
 import com.chonbonstudios.smartplaylists.ModelData.Playlist;
 import com.chonbonstudios.smartplaylists.ModelData.StreamingServices;
+import com.google.android.gms.ads.AdLoader;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -115,6 +116,8 @@ public class TransferActivity extends AppCompatActivity implements ListOfService
 
             }
         });
+
+
     }
 
     // creates a default services list with temp data

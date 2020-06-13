@@ -32,6 +32,7 @@
     <string name="api_spotify_accesss">https://accounts.spotify.com/api/token</string>
     <string name="api_spotify_getplaylists">https://api.spotify.com/v1/me/playlists?limit=50</string>
     <string name="api_spotify_gettracks">https://api.spotify.com/v1/playlists/%1$s/tracks</string>
+    <string name="api_spotify_search">https://api.spotify.com/v1/search</string>
 
     //Apple Music Api
     <string name="apple_dev_token">eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZNNzgyTkROU1IifQ.eyJpc3MiOiI5Mkg3Mzk5MzROIiwiaWF0IjoxNTkwNjA0OTM0LCJleHAiOjE2MDYzODM3MzR9.yaod-8EI1PwoGOi7b1Ujo-drqz0pVNxWnI41btm5fLQYWLtubMKFYD2gTPaa-VW5SK-w1D6YyRtVKKvs-5dtWw</string>

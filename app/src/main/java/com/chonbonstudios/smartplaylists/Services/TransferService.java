@@ -34,6 +34,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class TransferService extends IntentService {
+
     private static final String TAG = TransferService.class.getSimpleName();
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
@@ -80,9 +81,6 @@ public class TransferService extends IntentService {
         }
 
         //First Step is to fill the song arrays of each playlist chosen
-        //Spotify returns a track array of 100 at a time, so a For array is necessary to get all
-        //the tracks
-        //Apple music is the same as spotify, returns only 100 at a time
         switch(playlists.get(0).getSource()){
             case "APPLE_MUSIC": apiAppleGetTracks(handler);break;
             case "SPOTIFY": apiSpotifyGetTracks(handler); break;
@@ -97,10 +95,6 @@ public class TransferService extends IntentService {
                 }
                 break;
         }
-        //Second step is to search the destination service for the tracks and get an id of each track
-        //this is called from apiGetTrackHelper
-
-        //Third step is to create the playlist and then submit all the track ids found
 
     }
 
@@ -132,6 +126,14 @@ public class TransferService extends IntentService {
         return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 
+    //gets rid of the Feat. Tag in songs
+    private String removeFeat(String songName) {
+        if(songName.contains("feat.")){
+            int index = songName.indexOf("feat.");
+            songName = songName.substring(0,index -1);
+        }
+        return songName;
+    }
 
     //APi Calls
 
@@ -777,16 +779,213 @@ public class TransferService extends IntentService {
 
     //Search music on spotify
     public void apiFindSongsOnSpotify(Messenger handler){
+        transferPlaylists = new ArrayList<>();
         updateMessage(handler,2);
+
+        for(int i = 0; i < playlists.size(); i++){
+            transferPlaylists.add(new Playlist(playlists.get(i).getName(),"SPOTIFY"));
+            for(int j = 0; j < playlists.get(i).getTracks().size(); j++){
+
+                Song song = playlists.get(i).getTracks().get(j);
+                String termSearch = (removeFeat(song.getTrack()) + " " + song.getArtist());
+                termSearch = termSearch.replace("&", "");
+                termSearch = termSearch.replace("?", "");
+                termSearch = termSearch.replace("#", "");
+                termSearch.replace(' ', '+');
+                Log.v(TAG, "Term Search: " + termSearch);
+
+                Request request = new Request.Builder()
+                        .url(getString(R.string.api_spotify_search) + "?q="+termSearch+"&type=track"+"&limit=50")
+                        .header("Authorization", "Bearer "+ dh.getSpotifyUserToken())
+                        .build();
+
+                try(Response response = client.newCall(request).execute()){
+                    if(response.isSuccessful()){
+                        String res = response.body().string();
+                        //Log.v(TAG,"Spotify Find Songs Response: " + res);
+                        spotifyMatchSong(handler,res,i,song,false);
+                    } else {
+                        Log.v(TAG,"Failed " + response.toString());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
+            updateMessage(handler,3);
+            apiCreatePlaylistsSpotify(handler);
+
     }
 
     //Takes in a response from the search query and parses the songs, find the best match and add it
-    public void spotifyMatchSong(String res, int playlistPos, Song currentTrack, boolean lastSearch){
+    public void spotifyMatchSong(Messenger handler,String res, int playlistPos, Song currentTrack, boolean lastSearch){
+        try {
+            JSONArray songArray = new JSONObject(res).getJSONObject("tracks").getJSONArray("items");
+            int songPos = -1;
+            int diffName = 900;
+            boolean matched = false;
 
+            for(int i = 0; i < songArray.length(); i++){
+                //Spotify current track details
+                JSONObject songObject = songArray.getJSONObject(i);
+                String artistName = "";
+                for(int j = 0; j < songObject.getJSONArray("artists").length(); j++){
+                    artistName = artistName + songObject.getJSONArray("artists").getJSONObject(j).getString("name");
+
+                    if(j + 1 >= songObject.getJSONArray("artists").length()){
+
+                    } else {
+                        artistName = artistName + ", ";
+                    }
+                }
+                artistName = deAccent(artistName);
+                String songName = songObject.getString("name").replace("(", "")
+                        .replace(")", "").replace("-", "");
+                songName = deAccent(songName);
+                songName = removeFeat(songName);
+                String albumName = songObject.getJSONObject("album")
+                        .getString("name");
+
+
+                //source current track details
+                String sourceArtist = currentTrack.getArtist();
+                sourceArtist = deAccent(sourceArtist);
+                sourceArtist = sourceArtist.replace("&", "");
+                String sourceName = currentTrack.getTrack().replace("(", "")
+                        .replace(")", "").replace("-", "");
+                sourceName = deAccent(sourceName);
+                sourceName = removeFeat(sourceName);
+                String sourceAlbum = currentTrack.getAlbum();
+
+                int diff = sourceName.compareToIgnoreCase(songName);
+
+                Log.v(TAG,"Comparison:Source " + sourceArtist + " : " + sourceName +
+                        " vs Spotify " + artistName + " : " + songName);
+
+                Log.v(TAG, "Compare Value = Artist Name: " +
+                        artistName.compareToIgnoreCase(sourceArtist) + " song name: " +
+                        diff);
+
+                if(artistName.toLowerCase().contains(sourceArtist.toLowerCase()) ||
+                        sourceArtist.toLowerCase().contains(artistName.toLowerCase()) ||
+                        artistName.compareToIgnoreCase(sourceArtist) >= 0){
+
+                    if(sourceName.toLowerCase().contains(songName.toLowerCase()) ||
+                            diff >= 0){
+
+                        //exact match
+                        if(sourceName.compareToIgnoreCase(songName) == 0) {
+                            Log.v(TAG, "Song Matched! " + songName);
+                            Song song = new Song(artistName, songName, albumName);
+                            song.setId(songObject.getString("id"));
+                            transferPlaylists.get(playlistPos).addTrack(song);
+                            matched = true;
+                            songsFound+=1;
+                            updateMessage(handler, 2);
+                            break;
+                        }
+
+                        //Not an exact match, search and find the closest to zero.
+                        else {
+
+                            //test against last one
+                            if(diff < diffName) {
+                                songPos = i;
+                                diffName = diff;
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+            //testing results
+            if(diffName != 900 && !matched){
+
+                //Spotify track details
+                JSONObject songObject = songArray.getJSONObject(songPos);
+                String artistName = "";
+                for(int j = 0; j < songObject.getJSONArray("artists").length(); j++){
+                    artistName = artistName + songObject.getJSONArray("artists").getJSONObject(j).getString("name");
+
+                    if(j + 1 >= songObject.getJSONArray("artists").length()){
+
+                    } else {
+                        artistName = artistName + ", ";
+                    }
+                }
+                artistName = deAccent(artistName);
+                String songName = songObject.getString("name").replace("(", "")
+                        .replace(")", "").replace("-", "");
+                songName = deAccent(songName);
+                songName = removeFeat(songName);
+                String albumName = songObject.getJSONObject("album")
+                        .getString("name");
+
+                Log.v(TAG, "Song Matched! " + songName);
+                Song song = new Song(artistName, songName, albumName);
+                song.setId(songObject.getString("id"));
+                transferPlaylists.get(playlistPos).addTrack(song);
+                songsFound+=1;
+                updateMessage(handler, 2);
+
+            } else if(matched){
+                //do nothing, we matched
+            } else {
+                //retest with another search query
+                if(!lastSearch) {
+                    apiFindSongReverseSearchSpotify(handler,currentTrack, playlistPos);
+                } else {
+                    transferPlaylists.get(playlistPos).addUnMatchedTracks(currentTrack);
+                    songsNotFound+=1;
+                    Log.e(TAG, "NOT FOUND " + currentTrack.getTrack());
+                    updateMessage(handler, 2);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            //array or response body error, retry call artist only
+            if(!lastSearch) {
+                apiFindSongReverseSearchSpotify(handler,currentTrack, playlistPos);
+            } else {
+                transferPlaylists.get(playlistPos).addUnMatchedTracks(currentTrack);
+                songsNotFound+=1;
+                updateMessage(handler, 2);
+            }
+        }
     }
 
+
     //swaps artist and song name for search, helps with some
-    public void apiFindSongReverseSearchSpotify(Song song, int playlistPos){
+    public void apiFindSongReverseSearchSpotify(Messenger handler,Song song, int playlistPos){
+
+        String termSearch = (song.getArtist() + " " + song.getTrack());
+        termSearch = termSearch.replace("&", "");
+        termSearch = termSearch.replace("?", "");
+        termSearch = termSearch.replace("#", "");
+        termSearch.replace(' ', '+');
+        Log.v(TAG, "Term Search: " + termSearch);
+
+        Request request = new Request.Builder()
+                .url(getString(R.string.api_spotify_search) + "?q="+termSearch+"&type=track"+"&limit=50")
+                .header("Authorization", "Bearer "+ dh.getSpotifyUserToken())
+                .build();
+
+        try(Response response = client.newCall(request).execute()){
+            if(response.isSuccessful()){
+                String res = response.body().string();
+                //Log.v(TAG,"Spotify Find Songs Response: " + res);
+                spotifyMatchSong(handler,res,playlistPos,song,true);
+            } else {
+                Log.v(TAG,"Failed " + response.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -795,6 +994,8 @@ public class TransferService extends IntentService {
 
     }
 
+
+    //This sends back progress to the results activity
     public void updateMessage(Messenger handler, int stage){
         try {
             messageContent.put("stage", stage);

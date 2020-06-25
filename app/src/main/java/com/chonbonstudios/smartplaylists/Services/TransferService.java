@@ -6,25 +6,20 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import com.chonbonstudios.smartplaylists.ModelData.DataHandler;
 import com.chonbonstudios.smartplaylists.ModelData.Playlist;
 import com.chonbonstudios.smartplaylists.ModelData.Song;
 import com.chonbonstudios.smartplaylists.R;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -815,8 +810,13 @@ public class TransferService extends IntentService {
         }
 
 
+
+        try {
             updateMessage(handler,3);
             apiCreatePlaylistsSpotify(handler);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -990,8 +990,18 @@ public class TransferService extends IntentService {
     }
 
     //this will create all playlists and add all tracks from said playlists
-    public void apiCreatePlaylistsSpotify(Messenger handler){
+    public void apiCreatePlaylistsSpotify(Messenger handler) throws JSONException {
+        for(int i = 0; i < transferPlaylists.size();i++) {
+            // Create playlistObject that will be sent to spotify
+            // Create attributes object to add
+            JSONObject attributesObject = new JSONObject();
+            attributesObject.put("name", transferPlaylists.get(i).getName());
+            attributesObject.put("description", "Playlist transfered from " +
+                    playlists.get(i).getSource() +
+                    " by Smart Playlists! Get on Google Play or App Store now!");
+            attributesObject.put("public", false);
 
+        }
     }
 
 
